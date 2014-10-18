@@ -4,10 +4,13 @@ import nltk
 number_words = 2000
 #the size of a vector which code a word
 
+#You can get the dictionary here:
+#http://metaoptimize.com/projects/wordreprs/
+
 
 #We build the dictionary
-def make_dictionary():
-    f = open('embeddings-original.EMBEDDING_SIZE=200.txt', 'r')
+def make_dictionary(dictionary):
+    f = open(dictionary, 'r')
     english_dict = {}
 
     for i in range(1, number_words):
@@ -59,7 +62,7 @@ class FormatSentence:
         for r in range(0, len(vector_w) - 1):
             s_out += "%4.4f " % vector_w[r]
 
-        s_out += "%0.2f" % vector_w[len(vector_w)-1]
+        s_out += "%4.4f" % vector_w[len(vector_w)-1]
 
         return s_out
 
@@ -116,7 +119,7 @@ class FormatSentence:
         return res
 
     #return a vector of the output, if the sentence is annotated.
-    def data_set_output_sentence(self):
+    def data_set_output(self):
         if self.__is_annotated:
             words_subject = nltk.word_tokenize(self.__annotated_sentence[0])
             words_predicate = nltk.word_tokenize(self.__annotated_sentence[1])
@@ -124,11 +127,11 @@ class FormatSentence:
 
             output = ''
             for w in self.words:
-                if w in words_subject:
+                if w.lower() in list(map(lambda x: x.lower(), words_subject)):
                     output += '1\n'
-                elif w in words_object:
+                elif w.lower() in list(map(lambda x: x.lower(), words_object)):
                     output += '3\n'
-                elif w in words_predicate:
+                elif w.lower() in list(map(lambda x: x.lower(), words_predicate)):
                     output += '2\n'
                 else:
                     output += '0\n'
@@ -137,10 +140,56 @@ class FormatSentence:
             return ''
 
 
-en_dict = make_dictionary()
-sentence = "What's the birth date of Nicolas Sarkozy?"
-a_sentence = ('Nicolas Sarkozy', 'birth date', '')
+class BuildDataSet:
+    """
+    Build a data set from annotated questions and a dictionary of vectors
+    """
+    __dictionary = []
+    __window_size = 3
+    __file = None
+    __number_lines = 0
+    data_set_input = ''
+    data_set_output = ''
 
-fS = FormatSentence(sentence, en_dict, a_sentence)
-print(fS.data_set_input())
-print(fS.data_set_output_sentence())
+    def __init__(self, dictionary, file):
+        self.__dictionary = dictionary
+        self.__number_lines = sum(1 for line in open(file))
+        self.__file = open(file, 'r')
+
+    def build(self):
+        for i in range(0, int((self.__number_lines+1)/3)):
+            sentence = self.__file.readline()[:-1]
+            s = self.__file.readline()[:-1].split('|')
+            self.__file.readline()
+
+            a, b, c = s[0], s[1], s[2]
+
+            if a == '_':
+                a = ''
+            if b == '_':
+                b = ''
+            if c == '_':
+                c = ''
+
+            a_sentence = (a, b, c)
+            fS = FormatSentence(sentence, self.__dictionary, a_sentence)
+
+            self.data_set_input += fS.data_set_input()
+            self.data_set_output += fS.data_set_output()
+
+    def save(self, file_input, file_output):
+        f_in = open(file_input, 'w')
+        f_in.write(self.data_set_input)
+
+        f_out = open(file_output, 'w')
+        f_out.write(self.data_set_output)
+
+
+if __name__ == '__main__':
+    en_dict = make_dictionary('embeddings-original.EMBEDDING_SIZE=200.txt')
+    data_set = BuildDataSet(en_dict, 'AnnotatedQuestions.txt')
+    data_set.build()
+    data_set.save('questions.txt', 'answers.txt')
+
+    print('Database generated.')
+

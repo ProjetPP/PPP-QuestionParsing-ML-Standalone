@@ -1,0 +1,41 @@
+Who is Gandhi?
+Gandhi|who is|_
+
+Who is the president of France?
+president of France|is|_
+
+Who is the author of the Petit Prince?
+Petit Prince|author|_
+
+What is the weather like tomorrow?
+tomorrow|weather|
+
+Who is  Heisenberg?
+Heisenberg|is|_
+
+What is SAT problem?
+SAT problem|is|_
+
+When did Steve Jobs die?
+Steve Jobs|when die|_
+
+Who is the singer of Led Zeppelin?
+_|singer|Led Zeppelin
+
+What is the men average height?
+average|men height|_
+
+What is the speed of light ?
+speed|light|_
+
+When is the national day of China?
+China|national day|_
+
+What is the capital of Liechtenstein?
+Liechtenstein|capital|_
+
+Are violinists and fiddlers the same thing?
+violinists|same thing|fiddlers
+
+Are violins a single size?
+violins|is|single size

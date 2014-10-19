@@ -26,7 +26,7 @@ What is the men average height?
 average|men height|_
 
 What is the speed of light ?
-speed|light|_
+light|speed|_
 
 When is the national day of China?
 China|national day|_
@@ -39,3 +39,39 @@ violinists|same thing|fiddlers
 
 Are violins a single size?
 violins|is|single size
+
+What is the tennis racket of Federer?
+Federer|tennis racket|_
+
+Was Alessandro Volta a professor of chemistry?
+Alessandro Volta|was|professor of chemistry
+
+Was Alessandro Volta an Egyptian?
+Alessandro Volta|was|Egyptian
+
+Is Arabic a Central Semitic language?
+Arabic|is|Central Semitic language
+
+Was Pascal a French mathematician?
+Pascal|was|French mathematician
+
+Where was there a vast swarm of butterflies?
+vast swarm of butterflies|where|_
+
+What is the gas consumption in United States?
+United States|gas consumption|_
+
+Is Mozart born in 1865?
+Mozart|is born|1865
+
+How to say two in French?
+two|in French|?
+
+What is the first album of Led Zeppelin?
+Led Zeppelin|first album|_
+
+Who is Sarkozy?
+Sarkozy|who is|_
+
+What is the firstname of Sarkozy?
+Sarkozy|firstname|_

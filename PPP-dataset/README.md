@@ -1,4 +1,4 @@
-#Objectifs
+#Goal
 
 The goal of dataset.py is to transform English questions in a vectorized form that is compatible with the
 neuron network.

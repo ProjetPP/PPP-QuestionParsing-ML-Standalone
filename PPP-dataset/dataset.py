@@ -211,6 +211,6 @@ if __name__ == '__main__':
     print('Number of entries in the test set: '+ str(sum(1 for line in open('test.answers.txt'))))
 
 
-    q = 'What is the first album of Led Zeppelin?'
-    fs = FormatSentence(q, en_dict)
-    print(fs.data_set_input())
+    #q = 'What is the first album of Led Zeppelin?'
+    #fs = FormatSentence(q, en_dict)
+    #print(fs.data_set_input())

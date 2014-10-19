@@ -2,12 +2,16 @@ require 'nn'
 require 'optim'
 require 'xlua'
 
-function string:split(sep)
-        local sep, fields = sep or ":", {}
-        local pattern = string.format("([^%s]+)", sep)
-        self:gsub(pattern, function(c) fields[#fields+1] = c end)
-        return fields
-end
+dofile 'loadTensor.lua'
+
+
+opt = {}
+opt.learningRate = 1e-3
+opt.weightDecay = 0
+opt.momentum = 0
+opt.save = 'results'
+opt.batchSize = 1
+
 
 train_file_questions = "../PPP-dataset/train.questions.txt"
 train_file_answers = "../PPP-dataset/train.answers.txt"
@@ -16,34 +20,6 @@ test_file_questions = "../PPP-dataset/test.questions.txt"
 test_file_answers = "../PPP-dataset/test.answers.txt"
 
 
-
---Charge un fichier txt dans un tensor
-function readData(file)
-		io.input(file)
-		local nb_lines = 0
-		local n = 0
-
-		for line in io.lines() do
-			nb_lines = nb_lines+1
-			if nb_lines == 1 then
-				n = table.getn(line:split(" "))
-			end
-		end
-
-		io.input(file)
-
-		local data = torch.Tensor(nb_lines, n)
-
-		local i = 1
-		for line in io.lines() do
-			local v = line:split(" ")
-			for j = 1,n do
-				data[i][j] = v[j]
-			end
-			i = i+1
-		end
-		return data
-end
 
 train_questions = readData(train_file_questions)
 m = train_questions:size(1)
@@ -64,6 +40,14 @@ testData = {data = test_questions, labels = test_answers}
 --We normalize the data
 mean_data = trainData.data:mean(1)
 std_data = trainData.data:std(1)
+
+--We save the mean and the std of each composant
+local filename = paths.concat(opt.save, 'params')
+os.execute('mkdir -p ' .. sys.dirname(filename))
+print('==> saving mean and std to '..filename)
+torch.save(filename, {mean=mean_data, std=std_data})
+
+
 
 for i = 1, ninputs do
 	mean = trainData.data[{{}, i}]:mean()
@@ -97,12 +81,7 @@ confusion = optim.ConfusionMatrix(classes)
 
 
 
-opt = {}
-opt.learningRate = 1e-3
-opt.weightDecay = 0
-opt.momentum = 0
-opt.save = 'results'
-opt.batchSize = 1
+
 
 
 if model then

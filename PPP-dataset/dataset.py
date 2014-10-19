@@ -1,7 +1,8 @@
 import nltk
+import random
 
 #the number of words in the dictionary that we load
-number_words = 2000
+number_words = 20000
 #the size of a vector which code a word
 
 #You can get the dictionary here:
@@ -37,7 +38,7 @@ class FormatSentence:
 
     words = []
     __null_vector = []
-    __size_vector = 201
+    __size_vector = 26
     __dictionary = []
     __vectorized_words = []
     __window_size = 3
@@ -134,7 +135,7 @@ class FormatSentence:
                 elif w.lower() in list(map(lambda x: x.lower(), words_predicate)):
                     output += '2\n'
                 else:
-                    output += '0\n'
+                    output += '4\n'
             return output
         else:
             return ''
@@ -148,8 +149,8 @@ class BuildDataSet:
     __window_size = 3
     __file = None
     __number_lines = 0
-    data_set_input = ''
-    data_set_output = ''
+    data_set_input = []
+    data_set_output = []
 
     def __init__(self, dictionary, file):
         self.__dictionary = dictionary
@@ -174,22 +175,42 @@ class BuildDataSet:
             a_sentence = (a, b, c)
             fS = FormatSentence(sentence, self.__dictionary, a_sentence)
 
-            self.data_set_input += fS.data_set_input()
-            self.data_set_output += fS.data_set_output()
+            self.data_set_input.append(fS.data_set_input())
+            self.data_set_output.append(fS.data_set_output())
 
     def save(self, file_input, file_output):
-        f_in = open(file_input, 'w')
-        f_in.write(self.data_set_input)
+        f_in_train = open('train.' + file_input, 'w')
+        f_in_test = open('test.' + file_input, 'w')
+        f_out_train = open('train.' + file_output, 'w')
+        f_out_test = open('test.' + file_output, 'w')
 
-        f_out = open(file_output, 'w')
-        f_out.write(self.data_set_output)
+        for i in range(1, len(self.data_set_output)):
+            if random.random() < 0.2:
+                f_in_test.write(self.data_set_input[i])
+                f_out_test.write(self.data_set_output[i])
+            else:
+                f_in_train.write(self.data_set_input[i])
+                f_out_train.write(self.data_set_output[i])
+
+        f_in_train.close()
+        f_in_test.close()
+        f_out_train.close()
+        f_out_test.close()
+
+
 
 
 if __name__ == '__main__':
-    en_dict = make_dictionary('embeddings-original.EMBEDDING_SIZE=200.txt')
+    en_dict = make_dictionary('embeddings-scaled.EMBEDDING_SIZE=25.txt')
     data_set = BuildDataSet(en_dict, 'AnnotatedQuestions.txt')
     data_set.build()
     data_set.save('questions.txt', 'answers.txt')
 
     print('Database generated.')
+    print('Number of entries in the train set: '+ str(sum(1 for line in open('train.answers.txt'))))
+    print('Number of entries in the test set: '+ str(sum(1 for line in open('test.answers.txt'))))
 
+
+    q = 'What is the first album of Led Zeppelin?'
+    fs = FormatSentence(q, en_dict)
+    print(fs.data_set_input())

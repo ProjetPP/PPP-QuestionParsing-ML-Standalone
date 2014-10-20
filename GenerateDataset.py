@@ -2,17 +2,19 @@ import sys, os
 sys.path.append('PPP-dataset/')
 import dataset
 
-en_dict = dataset.make_dictionary('PPP-dataset/embeddings-scaled.EMBEDDING_SIZE=25.txt')
-
-
 def print_e(e):
     if len(e) == 0:
         return '_'
     else:
         return ' '.join(e)
 
-while True:
-    sentence = input()
+
+file = 'PPP-dataset/trec1999.txt'
+en_dict = dataset.make_dictionary('PPP-dataset/embeddings-scaled.EMBEDDING_SIZE=25.txt')
+
+f = open(file, 'r')
+
+for sentence in f:
     fs = dataset.FormatSentence(sentence, en_dict)
     file = open('input.txt', 'w')
     file.write(fs.data_set_input())
@@ -31,4 +33,5 @@ while True:
             c.append(fs.words[i])
         i += 1
 
-    print(print_e(a) + ' | ' + print_e(b) + ' | ' + print_e(c))
+    print(sentence[:-1])
+    print(print_e(a) + ' | ' + print_e(b) + ' | ' + print_e(c) + '\n')

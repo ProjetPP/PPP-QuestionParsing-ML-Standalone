@@ -185,7 +185,7 @@ class BuildDataSet:
         f_out_test = open('test.' + file_output, 'w')
 
         for i in range(1, len(self.data_set_output)):
-            if random.random() < 0.2:
+            if random.random() < 0.1:
                 f_in_test.write(self.data_set_input[i])
                 f_out_test.write(self.data_set_output[i])
             else:

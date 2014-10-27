@@ -1,8 +1,7 @@
-import sys, os
-sys.path.append('PPP-dataset/')
 import dataset
+import os
 
-en_dict = dataset.make_dictionary('PPP-dataset/embeddings-scaled.EMBEDDING_SIZE=25.txt')
+en_dict = dataset.Dictionary('PPP-dataset/embeddings-scaled.EMBEDDING_SIZE=25.txt')
 
 
 def print_e(e):

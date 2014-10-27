@@ -1,33 +1,57 @@
 import nltk
 import random
 
-#the number of words in the dictionary that we load
-number_words = 20000
-#the size of a vector which code a word
 
-#You can get the dictionary here:
-#http://metaoptimize.com/projects/wordreprs/
+class Dictionary:
+    """
+        You can get the dictionary here:
+        http://metaoptimize.com/projects/wordreprs/
 
+        Load the vectors of the lookup table in the dictionary english_dict
+    """
+    dict = {}
+    __number_words = 20000
+    size_vectors = 26
 
-#We build the dictionary
-def make_dictionary(dictionary):
-    f = open(dictionary, 'r')
-    english_dict = {}
+    def __init__(self, path, number_words=20000, size_vectors=26):
+        self.size_vectors = size_vectors
+        self.__number_words = number_words
 
-    for i in range(1, number_words):
-        line = f.readline()
-        s = line.split(' ')
-        word = s[0]
-        vector = s[1:]
-        vector_float = []
-        for j in range(0, len(vector)):
-            vector_float.append(float(vector[j]))
+        f = open(path, 'r')
+        for i in range(1, number_words):
+            line = f.readline()
+            s = line.split(' ')
+            word = s[0]
+            vector = s[1:]
+            vector_float = []
+            for j in range(0, len(vector)):
+                vector_float.append(float(vector[j]))
 
-        english_dict[word] = vector_float
+            self.dict[word] = vector_float
 
-    f.close()
+        f.close()
 
-    return english_dict
+    def word_to_vector(self, word):
+        if word in self.dict:
+            v = list(self.dict[word])
+        elif word.lower() in self.dict:
+            v = list(self.dict[word.lower()])
+        elif word.capitalize() in self.dict:
+            v = list(self.dict[word.capitalize()])
+        elif word.isdigit():
+            v = list(self.dict['1995'])
+        else:
+            v = list(self.dict['*UNKNOWN*'])
+
+        #We add one feature to know if the word start with an upper letter or not.
+        if word.upper() == word:
+            v.append(1.0)
+        elif word[0].upper() == word[0]:
+            v.append(-1.0)
+        else:
+            v.append(0)
+
+        return v
 
 
 class FormatSentence:
@@ -35,18 +59,23 @@ class FormatSentence:
     Take a sentence, annotated or not, and generate the vectors associated
 
     """
-
+    sentence = ''
     words = []
     __null_vector = []
     __size_vector = 26
-    __dictionary = []
+    __dictionary = None
     __vectorized_words = []
-    __window_size = 3
+    __window_size = 5
     __annotated_sentence = ('', '', '')
     __is_annotated = False
 
-    def __init__(self, raw_sentence, dictionary, annotated_sentence=('', '', '')):
-        self.words = nltk.word_tokenize(raw_sentence)
+    def __init__(self, raw_sentence, dictionary, annotated_sentence=('', '', ''), window_size=5):
+        if raw_sentence[-1] == '?' or raw_sentence[-1] == '.':
+            self.sentence = raw_sentence[:-1]
+        else:
+            self.sentence = raw_sentence
+
+        self.words = nltk.word_tokenize(self.sentence)
         self.__null_vector = self.__vector_to_string(self, [0.0] * self.__size_vector)
         self.__dictionary = dictionary
 
@@ -55,6 +84,8 @@ class FormatSentence:
         if annotated_sentence != ('', '', ''):
             self.__annotated_sentence = annotated_sentence
             self.__is_annotated = True
+
+        self.__window_size = window_size
 
 
     @staticmethod
@@ -67,34 +98,11 @@ class FormatSentence:
 
         return s_out
 
-    @staticmethod
-    def word_to_vector(self, word):
-        if word in self.__dictionary:
-            v = list(self.__dictionary[word])
-        elif word.lower() in self.__dictionary:
-            v = list(self.__dictionary[word.lower()])
-        elif word.capitalize() in self.__dictionary:
-            v = list(self.__dictionary[word.capitalize()])
-        elif word.isdigit():
-            v = list(self.__dictionary['1995'])
-        else:
-            v = list(self.__dictionary['*UNKNOWN*'])
-
-        #We add one feature to know if the word start with an upper letter or not.
-        if word.upper() == word:
-            v.append(1.0)
-        elif word[0].upper() == word[0]:
-            v.append(-1.0)
-        else:
-            v.append(0)
-
-        return v
-
     #Compute all the vector corresponding to the words of the sentence.
     def __vector_words(self):
         self.__vectorized_words = []
         for word in self.words:
-            vector_w = self.word_to_vector(self, word)
+            vector_w = self.__dictionary.word_to_vector(word)
             self.__vectorized_words.append(self.__vector_to_string(self, vector_w))
 
     #return the vectors in a string format corresponding to a word with a fixed window size
@@ -120,19 +128,35 @@ class FormatSentence:
         return res
 
     #return a vector of the output, if the sentence is annotated.
+
+    @staticmethod
+    def __lower_list(l):
+        return list(map(lambda x: x.lower(), l))
+
     def data_set_output(self):
         if self.__is_annotated:
-            words_subject = nltk.word_tokenize(self.__annotated_sentence[0])
-            words_predicate = nltk.word_tokenize(self.__annotated_sentence[1])
-            words_object = nltk.word_tokenize(self.__annotated_sentence[2])
+            words_subject = self.__lower_list(nltk.word_tokenize(self.__annotated_sentence[0]))
+            words_predicate = self.__lower_list(nltk.word_tokenize(self.__annotated_sentence[1]))
+            words_object = self.__lower_list(nltk.word_tokenize(self.__annotated_sentence[2]))
+            words_sentence = self.__lower_list(self.words)
+
+            def check(l_words):
+                if l_words != ['_']:
+                    for w_l in l_words:
+                        if not (w_l in words_sentence):
+                            print('Warning: ' + w_l + ' is not in the sentence ' + self.sentence)
+            check(words_subject)
+            check(words_predicate)
+            check(words_object)
 
             output = ''
+
             for w in self.words:
-                if w.lower() in list(map(lambda x: x.lower(), words_subject)):
+                if w.lower() in words_subject:
                     output += '1\n'
-                elif w.lower() in list(map(lambda x: x.lower(), words_object)):
+                elif w.lower() in words_object:
                     output += '3\n'
-                elif w.lower() in list(map(lambda x: x.lower(), words_predicate)):
+                elif w.lower() in words_predicate:
                     output += '2\n'
                 else:
                     output += '4\n'
@@ -145,21 +169,31 @@ class BuildDataSet:
     """
     Build a data set from annotated questions and a dictionary of vectors
     """
-    __dictionary = []
-    __window_size = 3
+    __dictionary = None
+    __window_size = 5
     __file = None
     __number_lines = 0
     data_set_input = []
     data_set_output = []
+
+    __sentences = {}
 
     def __init__(self, dictionary, file):
         self.__dictionary = dictionary
         self.__number_lines = sum(1 for line in open(file))
         self.__file = open(file, 'r')
 
+    @staticmethod
+    def format_question(question):
+        if question[-1] == '?' or question[-1] == '.':
+            return question[:-1].lower()
+        else:
+            return question.lower()
+
     def build(self):
         for i in range(0, int((self.__number_lines+1)/3)):
             sentence = self.__file.readline()[:-1]
+
             s = self.__file.readline()[:-1].split('|')
             self.__file.readline()
 
@@ -173,10 +207,14 @@ class BuildDataSet:
                 c = ''
 
             a_sentence = (a, b, c)
-            fS = FormatSentence(sentence, self.__dictionary, a_sentence)
+            f_s = FormatSentence(sentence, self.__dictionary, a_sentence, window_size=self.__window_size)
 
-            self.data_set_input.append(fS.data_set_input())
-            self.data_set_output.append(fS.data_set_output())
+            self.data_set_input.append(f_s.data_set_input())
+            self.data_set_output.append(f_s.data_set_output())
+            if self.format_question(sentence) in self.__sentences:
+                print('Warning: the sentence ' + sentence + ' is already in the dataset')
+            else:
+                self.__sentences[self.format_question(sentence)] = True
 
     def save(self, file_input, file_output):
         f_in_train = open('train.' + file_input, 'w')
@@ -198,11 +236,10 @@ class BuildDataSet:
         f_out_test.close()
 
 
-
-
 if __name__ == '__main__':
-    en_dict = make_dictionary('embeddings-scaled.EMBEDDING_SIZE=25.txt')
-    data_set = BuildDataSet(en_dict, 'AnnotatedQuestions.txt')
+    en_dict = Dictionary('PPP-dataset/embeddings-scaled.EMBEDDING_SIZE=25.txt')
+
+    data_set = BuildDataSet(en_dict, 'PPP-dataset/AnnotatedQuestions.txt')
     data_set.build()
     data_set.save('questions.txt', 'answers.txt')
 
@@ -214,3 +251,5 @@ if __name__ == '__main__':
     #q = 'What is the first album of Led Zeppelin?'
     #fs = FormatSentence(q, en_dict)
     #print(fs.data_set_input())
+
+    #alcest

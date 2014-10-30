@@ -65,11 +65,11 @@ class FormatSentence:
     __size_vector = 26
     __dictionary = None
     __vectorized_words = []
-    __window_size = 5
+    __window_size = 4
     __annotated_sentence = ('', '', '')
     __is_annotated = False
 
-    def __init__(self, raw_sentence, dictionary, annotated_sentence=('', '', ''), window_size=5):
+    def __init__(self, raw_sentence, dictionary, annotated_sentence=('', '', ''), window_size=4):
         if raw_sentence[-1] == '?' or raw_sentence[-1] == '.':
             self.sentence = raw_sentence[:-1]
         else:
@@ -170,7 +170,7 @@ class BuildDataSet:
     Build a data set from annotated questions and a dictionary of vectors
     """
     __dictionary = None
-    __window_size = 5
+    __window_size = 4
     __file = None
     __number_lines = 0
     data_set_input = []
@@ -217,13 +217,13 @@ class BuildDataSet:
                 self.__sentences[self.format_question(sentence)] = True
 
     def save(self, file_input, file_output):
-        f_in_train = open('train.' + file_input, 'w')
-        f_in_test = open('test.' + file_input, 'w')
-        f_out_train = open('train.' + file_output, 'w')
-        f_out_test = open('test.' + file_output, 'w')
+        f_in_train = open(file_input + '.train.txt', 'w')
+        f_in_test = open(file_input + '.test.txt', 'w')
+        f_out_train = open(file_output + '.train.txt', 'w')
+        f_out_test = open(file_output + '.test.txt', 'w')
 
         for i in range(1, len(self.data_set_output)):
-            if random.random() < 0.1:
+            if random.random() < 0.01:
                 f_in_test.write(self.data_set_input[i])
                 f_out_test.write(self.data_set_output[i])
             else:
@@ -241,11 +241,11 @@ if __name__ == '__main__':
 
     data_set = BuildDataSet(en_dict, 'PPP-dataset/AnnotatedQuestions.txt')
     data_set.build()
-    data_set.save('questions.txt', 'answers.txt')
+    data_set.save('PPP-dataset/questions', 'PPP-dataset/answers')
 
     print('Database generated.')
-    print('Number of entries in the train set: '+ str(sum(1 for line in open('train.answers.txt'))))
-    print('Number of entries in the test set: '+ str(sum(1 for line in open('test.answers.txt'))))
+    print('Number of entries in the train set: '+ str(sum(1 for line in open('PPP-dataset/questions.train.txt'))))
+    print('Number of entries in the test set: '+ str(sum(1 for line in open('PPP-dataset/questions.test.txt'))))
 
 
     #q = 'What is the first album of Led Zeppelin?'

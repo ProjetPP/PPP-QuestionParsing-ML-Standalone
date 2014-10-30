@@ -10,6 +10,9 @@ _|author|Petit Prince
 What is the weather like tomorrow?
 weather|tomorrow|_
 
+Weather, tomorrow?
+weather|tomorrow|_
+
 Who is  Heisenberg?
 Heisenberg|who is|_
 
@@ -396,3 +399,105 @@ Masourie | managing director | _
 
 Who is the managing director of "Masourie Corporation"?
 Masourie Corporation | managing director | _
+
+Who was President of Afghanistan in 1994?
+_ | President | of Afghanistan in 1994
+
+Who is the director of intergovernmental affairs for the San Diego county?
+_ | director of intergovernmental affairs | for the San Diego county
+
+Where is the Keck telescope?
+Keck telescope | where is | _
+
+How many moons does Jupiter have?
+Jupiter | How many moons | _
+
+When did Jaco Pastorius die?
+Jaco Pastorius | When die | _
+
+When did beethoven die?
+beethoven | When die | _
+
+How many people in Tucson?
+Tucson | How many people in | _
+
+How tall is Mt. Everest?
+Mt. Everest | How tall | _
+
+What is the capital of Congo?
+Congo | capital | _
+
+What is the capital of Italy?
+Italy | capital | _
+
+What is the capital of Sri Lanka?
+Sri Lanka | capital | _
+
+What novel inspired the movie BladeRunner?
+movie BladeRunner | What novel inspired | _
+
+What was the first Gilbert and Sullivan opera?
+Gilbert and Sullivan opera | the first | _
+
+What was the name of the computer in "2001: A Space Odyssey"?
+2001: A Space Odyssey | name of the computer | _
+
+When was Queen Victoria born?
+Queen Victoria | when was born | _
+
+When was the battle of the Somme fought?
+battle of the Somme | when was | _
+
+Where did the Battle of the Bulge take place?
+Battle of the Bulge | Where did | _
+
+Where was Lincoln assassinated?
+Lincoln | where was assassinated | _
+
+When was the women's suffrage amendment ratified?
+women's suffrage amendment ratified | when was | _
+
+Where is Qatar?
+Qatar | Where is | _
+
+Where is South Bend?
+South Bend | where is | _
+
+Where was Harry Truman born?
+Harry Truman | Where was born | _
+
+Who was Secretary of State during the Nixon administration?
+_ | Secretary of State | during the Nixon administration
+
+Who was the 16th President of the United States?
+_ | 16th President | United States
+
+Who wrote "The Pines of Rome"?
+_ | wrote | The Pines of Rome
+
+Who wrote "Dubliners"?
+_ | wrote | Dubliners
+
+Who wrote "Hamlet"?
+_ | wrote | Hamlet
+
+What did Richard Feynman say upon hearing he would receive the Nobel Prize in Physics?
+Richard Feynman | What did say upon hearing he would receive the Nobel Prize | _
+
+How did Socrates die?
+Socrates | How die | _
+
+How tall is the Matterhorn?
+the Matterhorn | how tall | _
+
+How tall is the replica of the Matterhorn at Disneyland?
+replica of the Matterhorn at Disneyland | How tall | _
+
+Is Emilio Said a crack in mathematics?
+Emilio Said | is a crack | in mathematics
+
+What is the birth date of Georges Washington?
+Georges Washington | birth date | _
+
+What is the birth date of Emilio?
+Emilio | birth date | _

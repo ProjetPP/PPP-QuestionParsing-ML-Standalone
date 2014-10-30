@@ -6,6 +6,7 @@ dofile 'loadTensor.lua'
 
 
 opt = {}
+weightDecay = 1e-2
 opt.learningRate = 1e-3
 opt.weightDecay = 0
 opt.momentum = 0
@@ -13,11 +14,11 @@ opt.save = 'results'
 opt.batchSize = 1
 
 
-train_file_questions = "../PPP-dataset/train.questions.txt"
-train_file_answers = "../PPP-dataset/train.answers.txt"
+train_file_questions = "../PPP-dataset/questions.train.txt"
+train_file_answers = "../PPP-dataset/answers.train.txt"
 
-test_file_questions = "../PPP-dataset/test.questions.txt"
-test_file_answers = "../PPP-dataset/test.answers.txt"
+test_file_questions = "../PPP-dataset/questions.test.txt"
+test_file_answers = "../PPP-dataset/answers.test.txt"
 
 
 
@@ -68,8 +69,15 @@ noutputs = 4
 
 model = nn.Sequential()
 model:add(nn.Reshape(ninputs))
-model:add(nn.Linear(ninputs, noutputs))
+--model:add(nn.Linear(ninputs, noutputs))
+--model:add( nn.LogSoftMax() )
+
+
+model:add( nn.Linear(ninputs,10) )
+model:add( nn.Tanh() )
+model:add( nn.Linear(10,noutputs) )
 model:add( nn.LogSoftMax() )
+
 
 
 criterion = nn.ClassNLLCriterion()
@@ -79,7 +87,9 @@ classes = {'1','2','3','4'}
 
 confusion = optim.ConfusionMatrix(classes)
 
-
+reg = {}
+reg[1] = model:get(3).weight
+reg[2] = model:get(3).bias
 
 
 
@@ -178,6 +188,11 @@ function train()
       else
          optimMethod(feval, parameters, optimState)
       end
+   end
+
+   --REGULARIZATION
+   for _,w in ipairs(reg) do
+      w:add(-weightDecay, w)
    end
 
    -- time taken

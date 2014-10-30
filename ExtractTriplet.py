@@ -16,6 +16,7 @@ while True:
     file = open('input.txt', 'w')
     file.write(fs.data_set_input())
     file.close()
+
     os.system('cd ML; th forward.lua')
     result = open('output.txt', 'r')
 

@@ -9,7 +9,7 @@
 
 import numpy
 
-import utils
+from ppp_nlp_ml_standalone import utils
 
 
 class LogisticRegression(object):

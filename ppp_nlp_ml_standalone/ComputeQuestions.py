@@ -1,4 +1,4 @@
-import ExtractTriplet
+from ppp_nlp_ml_standalone import ExtractTriplet
 
 file = '../data/trec1999.txt'
 f = open(file, 'r')

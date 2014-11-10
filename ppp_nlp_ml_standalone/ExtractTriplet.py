@@ -2,7 +2,7 @@ import os
 
 import numpy
 
-import Dataset, Linearclassifier
+from ppp_nlp_ml_standalone import Dataset, Linearclassifier
 
 
 class ExtractTriplet:

@@ -14,11 +14,11 @@ opt.save = 'results'
 opt.batchSize = 1
 
 
-train_file_questions = "../PPP-dataset/questions.train.txt"
-train_file_answers = "../PPP-dataset/answers.train.txt"
+train_file_questions = "../data/questions.train.txt"
+train_file_answers = "../data/answers.train.txt"
 
-test_file_questions = "../PPP-dataset/questions.test.txt"
-test_file_answers = "../PPP-dataset/answers.test.txt"
+test_file_questions = "../data/questions.test.txt"
+test_file_answers = "../data/answers.test.txt"
 
 
 
@@ -69,14 +69,14 @@ noutputs = 4
 
 model = nn.Sequential()
 model:add(nn.Reshape(ninputs))
---model:add(nn.Linear(ninputs, noutputs))
---model:add( nn.LogSoftMax() )
-
-
-model:add( nn.Linear(ninputs,10) )
-model:add( nn.Tanh() )
-model:add( nn.Linear(10,noutputs) )
+model:add(nn.Linear(ninputs, noutputs))
 model:add( nn.LogSoftMax() )
+
+
+--model:add( nn.Linear(ninputs,10) )
+--model:add( nn.Tanh() )
+--model:add( nn.Linear(10,noutputs) )
+--model:add( nn.LogSoftMax() )
 
 
 
@@ -88,8 +88,8 @@ classes = {'1','2','3','4'}
 confusion = optim.ConfusionMatrix(classes)
 
 reg = {}
-reg[1] = model:get(3).weight
-reg[2] = model:get(3).bias
+reg[1] = model:get(2).weight
+reg[2] = model:get(2).bias
 
 
 

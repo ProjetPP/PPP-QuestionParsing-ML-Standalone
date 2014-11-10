@@ -7,8 +7,8 @@ dofile 'loadTensor.lua'
 
 model = torch.load('results/model.net', 'binary')
 params = torch.load('results/params', 'binary')
-file = '../input.txt'
-output = '../output.txt'
+file = '../data/input.txt'
+output = '../data/output.txt'
 
 data = readData(file)
 

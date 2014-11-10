@@ -2,10 +2,10 @@ Who is Gandhi?
 Gandhi|who is|_
 
 Who is the president of France?
-_|president|France
+France|president|_
 
 Who is the author of the Petit Prince?
-_|author|Petit Prince
+Petit Prince|author|_
 
 What is the weather like tomorrow?
 weather|tomorrow|_
@@ -23,12 +23,12 @@ When did Steve Jobs die?
 Steve Jobs|when die|_
 
 Who is the singer of Led Zeppelin?
-_|singer|Led Zeppelin
+Led Zeppelin|singer|_
 
 What is the men average height?
 men|average height|_
 
-What is the speed of light ?
+What is the speed of light?
 light|speed|_
 
 When is the national day of China?
@@ -86,7 +86,7 @@ What movies did James Dean appear in?
 James Dean | movies appear in | _
 
 Who win, rabbits or turtles?
-_ | who win | rabbits or turtles
+rabbits or turtles | who win | _
 
 Where does Barack Obama live ?
 Barack Obama | Where live | _
@@ -101,19 +101,19 @@ Birth date of Barack Obama
 Barack Obama | birth date | _
 
 Who is the author of the book, "The Iron Lady: A Biography of Margaret Thatcher"?
-_ | The Iron Lady: A Biography Margaret Thatcher | author book
+book The Iron Lady: A Biography Margaret Thatcher | author | _
 
 Who is the author of the book "The Iron Lady: A Biography of Margaret Thatcher"?
-_ | The Iron Lady: A Biography Margaret Thatcher | author book
+book The Iron Lady: A Biography Margaret Thatcher | author | _
 
 Who is the author of the book, "The Iron Lady"?
-_ | The Iron Lady | author book
+book The Iron Lady | author | _
 
 Who is the author of the book, The Iron Lady: A Biography of Margaret Thatcher?
-_ | The Iron Lady: A Biography Margaret Thatcher | author book
+book The Iron Lady: A Biography Margaret Thatcher | author | _
 
 Who is the author of the book, The Iron Lady?
-_ | The Iron Lady | author book
+book The Iron Lady | author | _
 
 What was the monetary value of the Nobel Peace Prize in 1989?
 Nobel Peace Prize | monetary value in 1989 | _
@@ -131,10 +131,10 @@ How far is Yaroslavl from Moscow?
 Yaroslavl from Moscow | How far | _
 
 Name the designer of the shoe that spawned millions of plastic imitations, known as "jellies".
-_ | designer | jellies shoe
+jellies shoe | designer | _
 
 Who was President Cleveland's wife?
-_ | wife | President Cleveland
+President Cleveland | wife | _
 
 How much did Manchester United spend on players in 1993?
 Manchester United | how much spend on players in 1993 | _
@@ -152,16 +152,16 @@ How long did the Charles Manson murder trial last?
 Charles Manson | how long murder trial last | _
 
 Who was the first Taiwanese President?
-_ | first president | Taiwanese
+Taiwanese | first president | _
 
 Who was the leader of the Branch Davidian Cult confronted by the FBI in Waco, Texas in 1993?
-_ | leader in Waco, Texas in 1993 | Branch Davidian Cult
+Branch Davidian Cult | leader in Waco, Texas in 1993 | _
 
 Where is Inoco based?
 Inoco| where is | _
 
 Who was the first American in space?
-_ | first American | in space
+in space | first American | _
 
 When did the Jurassic Period end?
 Jurassic Period | When end | _
@@ -173,13 +173,13 @@ When did Nixon visit China?
 Nixon | When visit China | _
 
 Who was the lead actress in the movie "Sleepless in Seattle"?
-_ | lead actress | movie "Sleepless in Seattle"
+movie "Sleepless in Seattle" | lead actress | _
 
 Where did the 6th annual meeting of Indonesia-Malaysia forest experts take place?
- 6th annual meeting of Indonesia-Malaysia forest experts | Where take place | _
+6th annual meeting of Indonesia-Malaysia forest experts | Where take place | _
 
 Who may be best known for breaking the color line in baseball?
-_ | be best known | for breaking the color line in baseball
+breaking the color line in baseball | be best known for | _
 
 What is the brightest star visible from Earth?
 Earth | brightest star visible | _
@@ -191,7 +191,7 @@ Where was Ulysses S. Grant born?
 Ulysses S. Grant | Where was born | _
 
 Who received the Will Rogers Award in 1989?
-_ | received | the Will Rogers Award in 1989
+the Will Rogers Award in 1989 | who received | _
 
 What is the largest city in Germany?
 Germany | largest city | _
@@ -206,10 +206,10 @@ Where was George Washington born?
 George Washington | Where was born | _
 
 Who was chosen to be the first black chairman of the military Joint Chiefs of Staff?
-_ | was chosen to be | the first black chairman of the military Joint Chiefs of Staff
+the first black chairman of the military Joint Chiefs of Staff | was chosen to be | _
 
 Who won the Nobel Peace Prize in 1991?
-_ | won |  the Nobel Peace Prize in 1991
+the Nobel Peace Prize in 1991 | who won |  _
 
 What is the legal blood alcohol limit for the state of California?
 state of California | legal blood alcohol limit | _
@@ -224,28 +224,28 @@ When did Lucelly Garcia, a former ambassador of Columbia to Honduras, die?
 Lucelly Garcia | When die | _
 
 Who is the mayor of Marbella?
-_ | mayor | Marbella
+Marbella | mayor | _
 
 What company is the largest Japanese ship builder?
 company | largest Japanese ship builder | _
 
 Who is the director of the international group called the Human Genome Organization (HUGO) that is trying to coordinate gene-mapping research worldwide?
-_ | is | the director of Human Genome Organization
+director of Human Genome Organization | who is | _
 
 Where is the massive North Korean nuclear complex located?
 North Korean nuclear complex | located | _
 
 Who fired Maria Ybarra from her position in San Diego council?
-_ | fired from her position in San Diego council | Maria Ybarra
+Maria Ybarra | who fired from her position in San Diego council | _
 
 When was Dubai's first concrete house built?
 Dubai first concrete house | when was built | _
 
 Who is the president of Stanford University?
-_ | president | of Stanford University
+Stanford University | president | _
 
 Who invented the road traffic cone ?
-_ | invented | the road traffic cone
+the road traffic cone | who invented | _
 
 Where is Charlie?
 Charlie | where is | _
@@ -254,19 +254,19 @@ Where is Charlie Potter?
 Charlie Potter | where is | _
 
 Who is Quentin's enemy?
-_ | enemy | Quentin
+Quentin | enemy | _
 
 Who is the enemy of Quentin?
-_ | enemy | Quentin
+Quentin | enemy | _
 
 Is Paris in France?
 Paris | is in | France
 
 Name of the president of United States
-_ | president | United States
+United States | president | _
 
 Name of the president of France
-_ | president | France
+France | president | _
 
 Is Amazony sails books?
 Amazony | sails | books
@@ -284,7 +284,7 @@ What is the color of the sky in autumn?
 sky | color in autumn | _
 
 Who was the first doctor to successfully transplant a liver?
-_ | doctor | first transplant a liver
+transplant a liver | first doctor | _
 
 When did Nixon die?
 Nixon | when die | _
@@ -293,19 +293,19 @@ Where is Microsoft's corporate headquarters located?
 Microsoft | corporate headquarters located | _
 
 How many calories are there in a Big Mac?
-Big Mac | how many calories are there in | _
+Big Mac | how many calories | _
 
 What is the acronym for the rating system for air conditioner efficiency?
 rating system for air conditioner efficiency | acronym | _
 
 Name a film that has won the Golden Bear in the Berlin Film Festival?
-_ | has won | the Golden Bear in the Berlin Film Festival
+the Golden Bear in the Berlin Film Festival | has won | _
 
 Who was President of Costa Rica in 1994?
-_ | President | Costa Rica in 1994
+Costa Rica in 1994 | President | _
 
 Who was President of France in 1994?
-_ | President | France in 1994
+France in 1994 | President | _
 
 What does R.A.S. mean?
 R.A.S. | mean | _
@@ -338,10 +338,10 @@ Who was the saxophonist of Brown?
 Brown | saxophonist | _
 
 Who sing the sound of silence?
-_ | sing | the sound of silence
+the sound of silence | who sing | _
 
 Who sing "the sound of silence"?
-_ | sing | the sound of silence
+the sound of silence | who sing | _
 
 When Microsoft was created?
 Microsoft | when was created | _
@@ -401,10 +401,10 @@ Who is the managing director of "Masourie Corporation"?
 Masourie Corporation | managing director | _
 
 Who was President of Afghanistan in 1994?
-_ | President | of Afghanistan in 1994
+Afghanistan in 1994 | President | _
 
 Who is the director of intergovernmental affairs for the San Diego county?
-_ | director of intergovernmental affairs | for the San Diego county
+San Diego county | director of intergovernmental affairs | _
 
 Where is the Keck telescope?
 Keck telescope | where is | _
@@ -467,19 +467,19 @@ Where was Harry Truman born?
 Harry Truman | Where was born | _
 
 Who was Secretary of State during the Nixon administration?
-_ | Secretary of State | during the Nixon administration
+Nixon administration | Secretary of State | _
 
 Who was the 16th President of the United States?
-_ | 16th President | United States
+United States | 16th President | _
 
 Who wrote "The Pines of Rome"?
-_ | wrote | The Pines of Rome
+The Pines of Rome | who wrote | _
 
 Who wrote "Dubliners"?
-_ | wrote | Dubliners
+Dubliners | who wrote | _
 
 Who wrote "Hamlet"?
-_ | wrote | Hamlet
+Hamlet | who wrote | _
 
 What did Richard Feynman say upon hearing he would receive the Nobel Prize in Physics?
 Richard Feynman | What did say upon hearing he would receive the Nobel Prize | _

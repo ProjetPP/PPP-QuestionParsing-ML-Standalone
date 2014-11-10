@@ -15,7 +15,7 @@ neuron network, according to a lookup table.
 
     cd data
     wget http://metaoptimize.s3.amazonaws.com/cw-embeddings-ACL2010/embeddings-scaled.EMBEDDING_SIZE=25.txt.gz
-    tar -xvf embeddings-scaled.EMBEDDING_SIZE=25.txt
+    gzip -d embeddings-scaled.EMBEDDING_SIZE=25.txt
 
 -You need to install nltk and to download some dependencies files in order that nltk.word_tokenize works:
 
@@ -23,7 +23,8 @@ neuron network, according to a lookup table.
 
 In a python shell:
 
-    nltk.download()
+    import nltk
+    nltk.download('punkt')
 
 -The english data set of questions is in the file: data/AnnotatedQuestions.txt
 Compile the data set with the command:

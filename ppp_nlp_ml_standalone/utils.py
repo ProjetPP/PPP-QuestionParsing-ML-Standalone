@@ -14,5 +14,3 @@ def softmax(x):
         return e / numpy.sum(e, axis=0)
     else:
         return e / numpy.array([numpy.sum(e, axis=1)]).T  # ndim = 2
-
-

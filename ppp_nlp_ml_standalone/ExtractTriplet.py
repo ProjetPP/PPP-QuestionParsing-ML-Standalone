@@ -2,7 +2,7 @@ import os
 
 import numpy
 
-from ppp_nlp_ml_standalone import Dataset, Linearclassifier
+import Dataset, Linearclassifier
 
 
 class ExtractTriplet:
@@ -106,11 +106,12 @@ class ExtractTriplet:
 
 if __name__ == "__main__":
     extractTriplet = ExtractTriplet()
-
+    lua = False
     while True:
         s = input()
         if s is not '':
             extractTriplet.change_method("PythonLinear")
             extractTriplet.extract_from_sentence(s)
-            extractTriplet.change_method("LuaLinear")
-            extractTriplet.extract_from_sentence(s)
+            if lua:
+                extractTriplet.change_method("LuaLinear")
+                extractTriplet.extract_from_sentence(s)

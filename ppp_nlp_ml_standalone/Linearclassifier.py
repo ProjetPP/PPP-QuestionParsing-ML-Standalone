@@ -9,7 +9,7 @@
 
 import numpy
 
-from ppp_nlp_ml_standalone import utils
+import utils
 
 
 class LogisticRegression(object):
@@ -78,7 +78,7 @@ class TrainLinearClassifier:
             learning_rate *= 0.999
 
     def train_evaluation(self):
-        from sklearn.metrics import confusion_matrix
+        #from sklearn.metrics import confusion_matrix
         #Eval on the training set
         estimated_answers_vector = 1+numpy.argmax(self.classifier.predict(self.train_in), axis=1)
         answers_vector = self.vector_out
@@ -86,8 +86,8 @@ class TrainLinearClassifier:
         correct_answers = numpy.sum((estimated_answers_vector == answers_vector).astype('int'))
         ratio_correct_answers = float(correct_answers)/answers_vector.shape[0]
         print('Ratio of correct answers on the training set: %f' % ratio_correct_answers)
-        print('Confusion Matrix: ')
-        print(confusion_matrix(estimated_answers_vector, answers_vector))
+        #print('Confusion Matrix: ')
+        #print(confusion_matrix(estimated_answers_vector, answers_vector))
 
     def save_model(self):
         numpy.save('../data/W.npy', self.classifier.W)
@@ -106,7 +106,7 @@ class TrainLinearClassifier:
         self.train_out = numpy.fromfunction(lambda i, j: vector[i] == j+1, (m, self.n_out), dtype=int).astype('int')
 
     def test_evaluation(self, file_test_in, file_test_out):
-        from sklearn.metrics import confusion_matrix
+        #from sklearn.metrics import confusion_matrix
         self.test_in = numpy.loadtxt(file_test_in)
         answers_vector = numpy.loadtxt(file_test_out)
         estimated_answers_vector = 1+numpy.argmax(self.classifier.predict(self.test_in), axis=1)
@@ -114,8 +114,8 @@ class TrainLinearClassifier:
         correct_answers = numpy.sum((estimated_answers_vector == answers_vector).astype('int'))
         ratio_correct_answers = float(correct_answers)/answers_vector.shape[0]
         print('Ratio of correct answers on the test set: %f' % ratio_correct_answers)
-        print('Confusion Matrix: ')
-        print(confusion_matrix(estimated_answers_vector, answers_vector))
+        #print('Confusion Matrix: ')
+        #print(confusion_matrix(estimated_answers_vector, answers_vector))
 
 
 class Predict:

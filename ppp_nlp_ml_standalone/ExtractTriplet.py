@@ -26,7 +26,7 @@ class ExtractTriplet:
         if self.__method == "PythonLinear":
             input_matrix = self.__fs.numpy_input()
             output_matrix = self.__linear_predict.predict(input_matrix)
-            return self.print_triplet(numpy.argmax(output_matrix, axis=1))
+            return self.get_triplet(numpy.argmax(output_matrix, axis=1))
 
         elif self.__method == "LuaLinear":
             fs = Dataset.FormatSentence(sentence, self.__dictionary)
@@ -37,9 +37,9 @@ class ExtractTriplet:
             os.system('cd ../ppp_ml_lua; th forward.lua')
             result = open('../data/output.txt', 'r')
 
-            return self.print_triplet(numpy.array(list(map(lambda x: int(x) - 1, result))))
+            return self.get_triplet(numpy.array(list(map(lambda x: int(x) - 1, result))))
 
-    def print_triplet(self, solution):
+    def get_triplet(self, solution):
         a, b, c = [], [], []
 
         for i in range(0, solution.shape[0]):
@@ -50,13 +50,17 @@ class ExtractTriplet:
             elif int(solution[i]) == 2:
                 c.append(self.__fs.words[i])
 
-        def print_elem(l):
+        def get_elem(l):
             if len(l) == 0:
                 return '?'
             else:
                 return ' '.join(l)
 
-        print('(%s, %s, %s)' % (print_elem(a), print_elem(b), print_elem(c)))
+        return get_elem(a), get_elem(b), get_elem(c)
+
+    @staticmethod
+    def print_triplet(triplet):
+        print("(%s, %s, %s)" % triplet)
 
 
     @staticmethod
@@ -111,7 +115,7 @@ if __name__ == "__main__":
         s = input()
         if s is not '':
             extractTriplet.change_method("PythonLinear")
-            extractTriplet.extract_from_sentence(s)
+            extractTriplet.print_triplet(extractTriplet.extract_from_sentence(s))
             if lua:
                 extractTriplet.change_method("LuaLinear")
-                extractTriplet.extract_from_sentence(s)
+                extractTriplet.print_triplet(extractTriplet.extract_from_sentence(s))

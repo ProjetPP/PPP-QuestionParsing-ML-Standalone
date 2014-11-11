@@ -1,10 +1,7 @@
 import os
-
 import numpy
 
-from ppp_nlp_ml_standalone import Dataset, Linearclassifier, utils
-
-
+from ppp_nlp_ml_standalone import Dataset, Linearclassifier, config
 
 
 class ExtractTriplet:
@@ -14,7 +11,7 @@ class ExtractTriplet:
     __method = ""
 
     def __init__(self, method="PythonLinear"):
-        self.__dictionary = Dataset.Dictionary(utils.path_to_data + 'embeddings-scaled.EMBEDDING_SIZE=25.txt')
+        self.__dictionary = Dataset.Dictionary(config.get_config_path() + 'embeddings-scaled.EMBEDDING_SIZE=25.txt')
         p = Linearclassifier.Predict()
         self.__linear_predict = p
         self.__method = method
@@ -32,12 +29,12 @@ class ExtractTriplet:
 
         elif self.__method == "LuaLinear":
             fs = Dataset.FormatSentence(sentence, self.__dictionary)
-            file = open(utils.path_to_data + 'input.txt', 'w')
+            file = open(config.get_config_path() + 'input.txt', 'w')
             file.write(fs.data_set_input())
             file.close()
 
-            os.system('cd ' + utils.path_to_data + '../ppp_ml_lua; th forward.lua')
-            result = open(utils.path_to_data + 'output.txt', 'r')
+            os.system('cd ' + config.get_config_path() + '../ppp_ml_lua; th forward.lua')
+            result = open(config.get_config_path() + 'output.txt', 'r')
 
             return self.get_triplet(numpy.array(list(map(lambda x: int(x) - 1, result))))
 

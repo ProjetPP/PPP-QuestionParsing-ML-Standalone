@@ -1,43 +1,57 @@
-#Goal of PPP-NLP-ML-standalone
+
+
+
+#PPP-NLP-ML-standalone
 
 The goal is to understand the semantic of an English question.
-We provide here a tool to transform an English question into a triplet:
+
+We provide here a tool to transform an English question into a triple:
 (subject, predicate, object)
 
 You can find some examples of this transformation is the file data/AnnotatedQuestions.txt.
 
+## How to install
+
+With a recent version of pip:
+
+```
+pip3 install git+https://github.com/ProjetPP/PPP-NLP-ML-standalone
+```
+
+With an older one:
+
+```
+git clone https://github.com/ProjetPP/PPP-NLP-ML-standalone
+cd PPP-NLP-classical
+python3 setup.py install
+```
+
+Use the `--user` option if you want to install it only for the current user.
+
+
+Then, set the global variable PPP_ML_STANDALONE_CONFIG:
+
+    export PPP_ML_STANDALONE_CONFIG=config.json
+
 ##Generate the data set
 
-The goal of ppp_nlp_ml_standalone/Dataset.py is to transform English questions in a vectorized form that is compatible with the
-neuron network, according to a lookup table.
+The goal of ppp_nlp_ml_standalone/Dataset.py is to transform English questions in a vectorized form that is compatible
+with our ml model, according to a lookup table.
 
--After cloning this repo, the first thing to do is to download the lookup table here:
+Download the lookup table here:
 
     cd data
     wget http://metaoptimize.s3.amazonaws.com/cw-embeddings-ACL2010/embeddings-scaled.EMBEDDING_SIZE=25.txt.gz
     gzip -d embeddings-scaled.EMBEDDING_SIZE=25.txt.gz
 
--You need to install nltk and to download some dependencies files in order that nltk.word_tokenize works:
-
-    sudo pip3 install nltk
-
-In a python shell:
-
-    import nltk
-    nltk.download('punkt')
-
 -The english data set of questions is in the file: data/AnnotatedQuestions.txt
 Compile the data set with the command:
 
-    cd ppp_nlp_ml_standalone
-    python3 Dataset.py
+    python3 ppp_nlp_ml_standalone/Dataset.py
 
 ##Learn the Python model
 
-You need numpy (pip3 install numpy):
-
-    cd ppp_nlp_ml_standalone
-    python3 LinearClassifier
+    python3 ppp_nlp_ml_standalone/Linearclassifier.py
 
 ##Learn the Torch7 model (this is optional)
 
@@ -49,16 +63,27 @@ After installed it, you can execute the following command to learn the parameter
     test()
 
 
-##Use the tool
+##Use the tool in CLI
 
 Execute the command:
 
-    cd ppp_nlp_ml_standalone
-    python3 extractTriplet.py
+    python3 ppp_nlp_ml_standalone/extractTriplet.py
 
-Type a question in English, and the program will compute the triplet associated to the question.
+Type a question in English, and the program will compute the triple associated to the question.
 Example:
 
     Is Dustin Hoffman an actor?
     (Dustin Hoffman, Is, an actor)
+
+##Use the tool with the server
+
+    gunicorn ppp_nlp_ml_standalone:app -b 127.0.0.1:8080
+
+In a python shell:
+
+    import requests, json
+    requests.post('http://localhost:8080/', data=json.dumps({'id':
+    'foo', 'language': 'en', 'measures': {}, 'trace': [], 'tree': {'type':
+    'sentence', 'value': 'What is the birth date of George Washington?'}})).json()
+
 

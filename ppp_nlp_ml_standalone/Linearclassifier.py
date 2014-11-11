@@ -9,7 +9,7 @@
 
 import numpy
 
-from ppp_nlp_ml_standalone import utils
+from ppp_nlp_ml_standalone import utils, config
 
 
 class LogisticRegression(object):
@@ -90,8 +90,8 @@ class TrainLinearClassifier:
         #print(confusion_matrix(estimated_answers_vector, answers_vector))
 
     def save_model(self):
-        numpy.save(utils.path_to_data + 'W.npy', self.classifier.W)
-        numpy.save(utils.path_to_data + 'b.npy', self.classifier.b)
+        numpy.save(config.get_config_path() + 'W.npy', self.classifier.W)
+        numpy.save(config.get_config_path() + 'b.npy', self.classifier.b)
 
     def __build_x(self, file_in):
         self.train_in = numpy.loadtxt(file_in)
@@ -123,16 +123,16 @@ class Predict:
     b = None
 
     def __init__(self):
-        self.W = numpy.load(utils.path_to_data + 'W.npy')
-        self.b = numpy.load(utils.path_to_data + 'b.npy')
+        self.W = numpy.load(config.get_config_path() + 'W.npy')
+        self.b = numpy.load(config.get_config_path() + 'b.npy')
 
     def predict(self, input_matrix):
         return utils.softmax(numpy.dot(input_matrix, self.W) + self.b)
 
 if __name__ == "__main__":
-    trainModel = TrainLinearClassifier(utils.path_to_data + 'questions.train.txt',
-                                       utils.path_to_data + 'answers.train.txt')
+    trainModel = TrainLinearClassifier(config.get_config_path() + 'questions.train.txt',
+                                       config.get_config_path() + 'answers.train.txt')
     trainModel.train(n_epochs=2500, learning_rate=0.001, l2_reg=0.001)
     trainModel.train_evaluation()
-    trainModel.test_evaluation(utils.path_to_data + 'questions.test.txt', utils.path_to_data + 'answers.test.txt')
+    trainModel.test_evaluation(config.get_config_path() + 'questions.test.txt', config.get_config_path() + 'answers.test.txt')
     trainModel.save_model()

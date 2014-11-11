@@ -2,7 +2,8 @@ import nltk
 import random
 import numpy
 
-from ppp_nlp_ml_standalone import utils
+from ppp_nlp_ml_standalone import config
+
 
 class Dictionary:
     """
@@ -255,15 +256,17 @@ class BuildDataSet:
 
 
 if __name__ == '__main__':
-    en_dict = Dictionary(utils.path_to_data + 'embeddings-scaled.EMBEDDING_SIZE=25.txt')
+    en_dict = Dictionary(config.get_config_path() + 'embeddings-scaled.EMBEDDING_SIZE=25.txt')
 
-    data_set = BuildDataSet(en_dict, '../data/AnnotatedQuestions.txt')
+    data_set = BuildDataSet(en_dict, config.get_config_path() + 'AnnotatedQuestions.txt')
     data_set.build()
-    data_set.save('../data/questions', '../data/answers')
+    data_set.save(config.get_config_path() + 'questions', config.get_config_path() + 'answers')
 
     print('Database generated.')
-    print('Number of entries in the train set: '+ str(sum(1 for line in open('../data/questions.train.txt'))))
-    print('Number of entries in the test set: '+ str(sum(1 for line in open('../data/questions.test.txt'))))
+    print('Number of entries in the train set: ' +
+          str(sum(1 for line in open(config.get_config_path() + 'questions.train.txt'))))
+    print('Number of entries in the test set: ' +
+          str(sum(1 for line in open(config.get_config_path() + 'questions.test.txt'))))
 
 
     #q = 'What is the first album of Led Zeppelin?'

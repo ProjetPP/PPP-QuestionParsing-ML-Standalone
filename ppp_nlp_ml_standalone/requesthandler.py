@@ -1,8 +1,8 @@
 """Request handler of the module."""
+
 import ppp_datamodel
 from ppp_datamodel import Sentence
 from ppp_datamodel.communication import TraceItem, Response
-from ppp_core.exceptions import ClientError
 from ppp_nlp_ml_standalone import ExtractTriplet
 
 

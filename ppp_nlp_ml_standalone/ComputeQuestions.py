@@ -1,6 +1,6 @@
-from ppp_nlp_ml_standalone import ExtractTriplet, utils
+from ppp_nlp_ml_standalone import ExtractTriplet, config
 
-file = utils.path_to_data + 'trec1999.txt'
+file = config.get_config_path()+ 'trec1999.txt'
 f = open(file, 'r')
 
 extractTriplet = ExtractTriplet.ExtractTriplet()

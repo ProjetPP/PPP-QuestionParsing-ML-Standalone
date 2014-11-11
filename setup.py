@@ -26,7 +26,8 @@ setup(
     install_requires=[
         'ppp_datamodel>=0.5',
         'ppp_core>=0.5',
-        'nltk'
+        'nltk',
+        'numpy'
     ],
     packages=[
         'ppp_nlp_ml_standalone',

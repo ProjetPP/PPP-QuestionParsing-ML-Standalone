@@ -2,6 +2,7 @@ import nltk
 import random
 import numpy
 
+from ppp_nlp_ml_standalone import utils
 
 class Dictionary:
     """
@@ -254,7 +255,7 @@ class BuildDataSet:
 
 
 if __name__ == '__main__':
-    en_dict = Dictionary('../data/embeddings-scaled.EMBEDDING_SIZE=25.txt')
+    en_dict = Dictionary(utils.path_to_data + 'embeddings-scaled.EMBEDDING_SIZE=25.txt')
 
     data_set = BuildDataSet(en_dict, '../data/AnnotatedQuestions.txt')
     data_set.build()

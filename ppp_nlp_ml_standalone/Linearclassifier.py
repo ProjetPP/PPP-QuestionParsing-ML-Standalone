@@ -90,8 +90,8 @@ class TrainLinearClassifier:
         #print(confusion_matrix(estimated_answers_vector, answers_vector))
 
     def save_model(self):
-        numpy.save('../data/W.npy', self.classifier.W)
-        numpy.save('../data/b.npy', self.classifier.b)
+        numpy.save(utils.path_to_data + 'W.npy', self.classifier.W)
+        numpy.save(utils.path_to_data + 'b.npy', self.classifier.b)
 
     def __build_x(self, file_in):
         self.train_in = numpy.loadtxt(file_in)
@@ -123,15 +123,16 @@ class Predict:
     b = None
 
     def __init__(self):
-        self.W = numpy.load('../data/W.npy')
-        self.b = numpy.load('../data/b.npy')
+        self.W = numpy.load(utils.path_to_data + 'W.npy')
+        self.b = numpy.load(utils.path_to_data + 'b.npy')
 
     def predict(self, input_matrix):
         return utils.softmax(numpy.dot(input_matrix, self.W) + self.b)
 
 if __name__ == "__main__":
-    trainModel = TrainLinearClassifier('../data/questions.train.txt', '../data/answers.train.txt')
+    trainModel = TrainLinearClassifier(utils.path_to_data + 'questions.train.txt',
+                                       utils.path_to_data + 'answers.train.txt')
     trainModel.train(n_epochs=2500, learning_rate=0.001, l2_reg=0.001)
     trainModel.train_evaluation()
-    trainModel.test_evaluation('../data/questions.test.txt', '../data/answers.test.txt')
+    trainModel.test_evaluation(utils.path_to_data + 'questions.test.txt', utils.path_to_data + 'answers.test.txt')
     trainModel.save_model()

@@ -15,7 +15,7 @@ class RequestHandler:
             return []
 
         sentence = self.request.tree.value
-        extract_triplet = ExtractTriplet()
+        extract_triplet = ExtractTriplet.ExtractTriplet()
         a, b, c = extract_triplet.extract_from_sentence(sentence)
 
         if a == '?':

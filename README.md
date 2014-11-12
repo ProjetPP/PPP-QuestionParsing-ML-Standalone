@@ -69,7 +69,7 @@ After installed it, you can execute the following command to learn the parameter
 
 Execute the command:
 
-    python3 ppp_nlp_ml_standalone/extractTriplet.py
+    python3 ppp_nlp_ml_standalone/ExtractTriplet.py
 
 Type a question in English, and the program will compute the triple associated to the question.
 Example:

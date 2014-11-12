@@ -12,13 +12,7 @@ You can find some examples of this transformation is the file data/AnnotatedQues
 
 ## How to install
 
-With a recent version of pip:
-
-```
-pip3 install git+https://github.com/ProjetPP/PPP-NLP-ML-standalone
-```
-
-With an older one:
+Download the git depo and install the python module:
 
 ```
 git clone https://github.com/ProjetPP/PPP-NLP-ML-standalone
@@ -32,6 +26,14 @@ Use the `--user` option if you want to install it only for the current user.
 Then, set the global variable PPP_ML_STANDALONE_CONFIG:
 
     export PPP_ML_STANDALONE_CONFIG=config.json
+    
+Edit the file config.json to set the absolute path to the folder "data": 
+Example:
+
+    {
+        "data": "/home/user/PPP-NLP-ML-standalone/data/"
+    }
+
 
 ##Generate the data set
 

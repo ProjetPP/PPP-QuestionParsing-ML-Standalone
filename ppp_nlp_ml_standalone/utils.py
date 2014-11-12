@@ -1,10 +1,6 @@
 import numpy
 
 
-#numpy.seterr(all='ignore')
-
-path_to_data = '/Users/quentin/Projet/PPP-NLP-ML-standalone/data/'
-
 def sigmoid(x):
     return 1. / (1 + numpy.exp(-x))
 

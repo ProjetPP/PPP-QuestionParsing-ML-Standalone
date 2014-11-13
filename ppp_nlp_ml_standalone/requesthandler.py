@@ -1,10 +1,12 @@
 """Request handler of the module."""
 
 import ppp_datamodel
-from ppp_datamodel import Sentence
+from ppp_datamodel import Sentence, Missing, Resource
 from ppp_datamodel.communication import TraceItem, Response
 from ppp_nlp_ml_standalone import ExtractTriplet
 
+def missing_or_resource(x):
+    return Missing() if x == '?' else Resource(value=x)
 
 class RequestHandler:
     def __init__(self, request):
@@ -16,22 +18,8 @@ class RequestHandler:
 
         sentence = self.request.tree.value
         extract_triplet = ExtractTriplet.ExtractTriplet()
-        a, b, c = extract_triplet.extract_from_sentence(sentence)
-
-        if a == '?':
-            subject = ppp_datamodel.Missing()
-        else:
-            subject = ppp_datamodel.Resource(value=a)
-
-        if b == '?':
-            predicate = ppp_datamodel.Missing()
-        else:
-            predicate = ppp_datamodel.Resource(value=b)
-
-        if c == '?':
-            object = ppp_datamodel.Missing()
-        else:
-            object = ppp_datamodel.Resource(value=b)
+        triple = extract_triplet.extract_from_sentence(sentence)
+        (subject, predicate, object) = map(missing_or_resource, triple)
 
         triple = ppp_datamodel.Triple(subject=subject,
                                       predicate=predicate,

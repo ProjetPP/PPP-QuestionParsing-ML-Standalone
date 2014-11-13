@@ -1,6 +1,6 @@
 """Example python module for the PPP."""
 
-from ppp_core import HttpRequestHandler
+from ppp_libmodule import HttpRequestHandler
 from .requesthandler import RequestHandler
 
 def app(environ, start_response):

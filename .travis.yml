@@ -5,7 +5,6 @@ python:
   - 3.2
   - 3.3
   - 3.4
-  - pypy3
 
 install:
     - pip install scrutinizer-ocular coverage webtest httmock requests ppp_datamodel ppp_core nltk numpy

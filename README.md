@@ -1,7 +1,8 @@
-
-
-
 #PPP-NLP-ML-standalone
+
+[![Build Status](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/?branch=master)
 
 The goal is to understand the semantic of an English question.
 

@@ -25,7 +25,7 @@ setup(
     ],
     install_requires=[
         'ppp_datamodel>=0.5',
-        'ppp_core>=0.5',
+        'ppp_libmodule>=0.6',
         'nltk',
         'numpy'
     ],

@@ -9,7 +9,7 @@
 
 import numpy
 
-from ppp_nlp_ml_standalone import utils, config
+from . import utils, config
 
 
 class LogisticRegression(object):
@@ -69,13 +69,18 @@ class TrainLinearClassifier:
         self.classifier = LogisticRegression(input_matrix=self.train_in, label=self.train_out, n_in=self.n_in,
                                              n_out=self.n_out)
 
+        print('Size of a vector: %d' % self.n_in)
+
     def train(self, n_epochs=1500, learning_rate=0.001, l2_reg=0.001):
+        previous_cost = 100.
         for epoch in range(n_epochs):
             self.classifier.train(lr=learning_rate, L2_reg=l2_reg)
             cost = self.classifier.negative_log_likelihood()
             if epoch % 50 == 0:
                 print('Training epoch %d, cost is ' % epoch, cost)
-            learning_rate *= 0.999
+            #if cost > 0.95 * previous_cost:
+            #    learning_rate *= 0.9999
+            previous_cost = cost
 
     def train_evaluation(self):
         #from sklearn.metrics import confusion_matrix
@@ -90,8 +95,8 @@ class TrainLinearClassifier:
         #print(confusion_matrix(estimated_answers_vector, answers_vector))
 
     def save_model(self):
-        numpy.save(config.get_config_path() + 'W.npy', self.classifier.W)
-        numpy.save(config.get_config_path() + 'b.npy', self.classifier.b)
+        numpy.save(config.get_data('W.npy'), self.classifier.W)
+        numpy.save(config.get_data('b.npy'), self.classifier.b)
 
     def __build_x(self, file_in):
         self.train_in = numpy.loadtxt(file_in)
@@ -123,16 +128,8 @@ class Predict:
     b = None
 
     def __init__(self):
-        self.W = numpy.load(config.get_config_path() + 'W.npy')
-        self.b = numpy.load(config.get_config_path() + 'b.npy')
+        self.W = numpy.load(config.get_data('W.npy'))
+        self.b = numpy.load(config.get_data('b.npy'))
 
     def predict(self, input_matrix):
         return utils.softmax(numpy.dot(input_matrix, self.W) + self.b)
-
-if __name__ == "__main__":
-    trainModel = TrainLinearClassifier(config.get_config_path() + 'questions.train.txt',
-                                       config.get_config_path() + 'answers.train.txt')
-    trainModel.train(n_epochs=2500, learning_rate=0.001, l2_reg=0.001)
-    trainModel.train_evaluation()
-    trainModel.test_evaluation(config.get_config_path() + 'questions.test.txt', config.get_config_path() + 'answers.test.txt')
-    trainModel.save_model()

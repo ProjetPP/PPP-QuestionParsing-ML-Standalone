@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
-
+import os
+import glob
 from setuptools import setup, find_packages
+
+
+data_dir = 'data'
+datafiles = [(data_dir, [f for f in glob.glob(os.path.join(data_dir, '*'))])]
+
 
 setup(
     name='ppp_nlp_ml_standalone',
@@ -32,6 +38,8 @@ setup(
     packages=[
         'ppp_nlp_ml_standalone',
     ],
+    data_files=datafiles,
+
 )
 
 import sys

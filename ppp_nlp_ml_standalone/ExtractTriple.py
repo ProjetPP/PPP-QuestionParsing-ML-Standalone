@@ -1,17 +1,17 @@
 import os
 import numpy
 
-from ppp_nlp_ml_standalone import Dataset, Linearclassifier, config
+from . import Dataset, Linearclassifier, config
 
 
-class ExtractTriplet:
+class ExtractTriple:
     __dictionary = None
     __linear_predict = None
     __fs = None
     __method = ""
 
     def __init__(self, method="PythonLinear"):
-        self.__dictionary = Dataset.Dictionary(config.get_config_path() + 'embeddings-scaled.EMBEDDING_SIZE=25.txt')
+        self.__dictionary = Dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
         p = Linearclassifier.Predict()
         self.__linear_predict = p
         self.__method = method
@@ -20,7 +20,7 @@ class ExtractTriplet:
         self.__method = method
 
     def extract_from_sentence(self, sentence):
-        self.__fs = Dataset.FormatSentence(sentence, self.__dictionary)
+        self.__fs = Dataset.FormatSentence(sentence, self.__dictionary, window_size=5)
 
         if self.__method == "PythonLinear":
             input_matrix = self.__fs.numpy_input()
@@ -33,8 +33,8 @@ class ExtractTriplet:
             file.write(fs.data_set_input())
             file.close()
 
-            os.system('cd ' + config.get_config_path() + '../ppp_ml_lua; th forward.lua')
-            result = open(config.get_config_path() + 'output.txt', 'r')
+            os.system('cd ' + config.get_data('../ppp_ml_lua; th forward.lua'))
+            result = open(config.get_data('output.txt'), 'r')
 
             return self.get_triplet(numpy.array(list(map(lambda x: int(x) - 1, result))))
 
@@ -105,16 +105,3 @@ class ExtractTriplet:
         #
         #     return test_possibilities(numpy.zeros((number_words, 4), dtype=float), 0)
 
-
-
-if __name__ == "__main__":
-    extractTriplet = ExtractTriplet()
-    lua = False
-    while True:
-        s = input()
-        if s is not '':
-            extractTriplet.change_method("PythonLinear")
-            extractTriplet.print_triplet(extractTriplet.extract_from_sentence(s))
-            if lua:
-                extractTriplet.change_method("LuaLinear")
-                extractTriplet.print_triplet(extractTriplet.extract_from_sentence(s))

@@ -1,9 +1,9 @@
-from ppp_nlp_ml_standalone import ExtractTriplet, config
+from . import ExtractTriple, config
 
-file = config.get_config_path()+ 'trec1999.txt'
+file = config.get_data('trec1999.txt')
 f = open(file, 'r')
 
-extractTriplet = ExtractTriplet.ExtractTriplet()
+extractTriplet = ExtractTriple.ExtractTriple()
 
 
 for sentence in f:

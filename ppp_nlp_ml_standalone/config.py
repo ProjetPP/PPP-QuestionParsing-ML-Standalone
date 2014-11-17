@@ -1,20 +1,13 @@
 """Configuration module."""
 
+import ppp_nlp_ml_standalone
 import os
-import json
-from ppp_core.exceptions import InvalidConfig
+
+from os.path import join
 
 
-def get_config_path():
-    path = os.environ.get('PPP_ML_STANDALONE_CONFIG', '')
-    if not path:
-        raise InvalidConfig('Could not find config file, please set '
-                            'environment variable PPP_ML_STANDALONE_CONFIG.')
-    else:
-        try:
-            with open(path) as fd:
-                    data = json.load(fd)
-        except ValueError as exc:
-            raise InvalidConfig(*exc.args)
-
-    return data["data"]
+def get_data(filename):
+    package_dir = ppp_nlp_ml_standalone.__path__[0]
+    dir_name = join(os.path.dirname(package_dir), 'data')
+    fullname = join(dir_name, filename)
+    return fullname

@@ -504,3 +504,34 @@ Emilio | birth date | _
 
 Who is the most famous tennis player?
 tennis player | most famous | _
+
+What is the formation location of Led Zeppelin?
+Led Zeppelin | formation location | _
+
+Do you believe in life after love?
+life after love | do you believe in | _
+
+Where does most of the marijuana entering the United States come from?
+most of the marijuana entering the United States | where come from | _
+
+What is the citizenship of the president of United States?
+president of United States | citizenship | _
+
+What is citizenship of the president of the citizenship of the president of United States?
+president of the citizenship of the president of United States | citizenship | _
+
+Is P=NP a theorem?
+P=NP | is | theorem
+
+birth date Obama
+Obama | birth date | _
+
+birth date Barack Obama
+Barack Obama | birth date | _
+
+date Obama birth
+Obama | birth date | _
+
+date Barack Obama birth
+Barack Obama | birth date | _
+

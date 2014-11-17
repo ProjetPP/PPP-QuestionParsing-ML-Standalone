@@ -3,10 +3,12 @@
 import ppp_datamodel
 from ppp_datamodel import Sentence, Missing, Resource
 from ppp_datamodel.communication import TraceItem, Response
-from ppp_nlp_ml_standalone import ExtractTriplet
+from . import ExtractTriple
+
 
 def missing_or_resource(x):
     return Missing() if x == '?' else Resource(value=x)
+
 
 class RequestHandler:
     def __init__(self, request):
@@ -17,7 +19,7 @@ class RequestHandler:
             return []
 
         sentence = self.request.tree.value
-        extract_triplet = ExtractTriplet.ExtractTriplet()
+        extract_triplet = ExtractTriple.ExtractTriple()
         triple = extract_triplet.extract_from_sentence(sentence)
         (subject, predicate, object) = map(missing_or_resource, triple)
 

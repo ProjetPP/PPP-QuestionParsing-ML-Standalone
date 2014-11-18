@@ -11,6 +11,7 @@ install:
     - python -m nltk.downloader punkt
 
 before_script:
+  - ./dependencies.sh
   - ./setup.py install
 
 script:

@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
 import unittest
 
+
 def main(): # pragma: no cover
-    testsuite = unittest.TestLoader().discover('tests/')
-    results = unittest.TextTestRunner(verbosity=1).run(testsuite)
+    test_suite = unittest.TestLoader().discover('tests/')
+    results = unittest.TextTestRunner(verbosity=1).run(test_suite)
     if results.errors or results.failures:
         exit(1)
     else:

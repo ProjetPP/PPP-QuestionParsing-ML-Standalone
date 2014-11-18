@@ -254,10 +254,3 @@ class BuildDataSet:
         f_in_test.close()
         f_out_train.close()
         f_out_test.close()
-
-
-    #q = 'What is the first album of Led Zeppelin?'
-    #fs = FormatSentence(q, en_dict)
-    #print(fs.data_set_input())
-
-    #alcest

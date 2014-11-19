@@ -15,7 +15,6 @@ before_script:
   - mkdir /tmp/ppp_nlp_standalone_data/
   - ./setup.py install
   - ./bootstrap.sh
-  - mv data/embeddings* /tmp/ppp_nlp_standalone_data/
 
 script:
   - coverage3 run run_tests.py

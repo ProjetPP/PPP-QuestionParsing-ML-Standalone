@@ -20,10 +20,6 @@ git clone https://github.com/ProjetPP/PPP-NLP-ML-standalone
 cd PPP-NLP-ML-standalone
 ```
 
-Download the look-up table:
-
-    ./dependencies.sh
-
 
 Then, install the script:
 
@@ -32,8 +28,21 @@ Then, install the script:
 
 Use the `--user` option if you want to install it only for the current user.
 
+## Bootstrap
 
-##Generate the data set
+Short version: run `./bootstrap.sh`
+
+Detailed version:
+
+###Download the look-up table:
+
+```
+cd data
+wget http://metaoptimize.s3.amazonaws.com/cw-embeddings-ACL2010/embeddings-scaled.EMBEDDING_SIZE=25.txt.gz
+gzip -d embeddings-scaled.EMBEDDING_SIZE=25.txt.gz
+```
+
+###Generate the data set
 
 The goal of ppp_nlp_ml_standalone/Dataset.py is to transform English questions in a vectorized form that is compatible
 with our ml model, according to a lookup table.
@@ -43,11 +52,11 @@ Compile the data set with the command:
 
     python3 demo/Dataset.py
 
-##Learn the Python model
+###Learn the Python model
 
     python3 demo/Learn.py
 
-##Learn the Torch7 model (this is optional)
+###Learn the Torch7 model (this is optional)
 
 You need torch7: http://torch.ch/
 After installed it, you can execute the following command to learn the parameters:

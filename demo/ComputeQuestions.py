@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from ppp_nlp_ml_standalone import ExtractTriple, config
 
 file = config.get_data('trec1999.txt')

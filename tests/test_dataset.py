@@ -6,9 +6,9 @@ from ppp_nlp_ml_standalone import Dataset, config
 
 class DataSetTest(TestCase):
 
-    def testPath(self):
-        path = config.get_data('test')
-        self.assertEqual(os.path.abspath(path), os.path.abspath('data/test'))
+    #def testPath(self):
+    #    path = config.get_data('test')
+    #    self.assertEqual(os.path.abspath(path), os.path.abspath('data/test'))
 
     def testSentence(self):
         en_dict = Dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))

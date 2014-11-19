@@ -42,7 +42,7 @@ class LinearClassifierTest(TestCase):
 
         self.assertTrue(numpy.array_equal(numpy.argmax(predicted_values, axis=1), numpy.array([0, 1, 1])))
 
-        self.assertLess(classifier.negative_log_likelihood() 5)
+        self.assertLess(classifier.negative_log_likelihood(), 5)
 
     def testLearnModel(self):
         trainModel = Linearclassifier.TrainLinearClassifier(config.get_data('questions.train.txt'),

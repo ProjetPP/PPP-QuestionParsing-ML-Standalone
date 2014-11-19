@@ -11,6 +11,7 @@ install:
     - python -m nltk.downloader punkt
 
 before_script:
+  - export PPP_NLP_STANDALONE_CONFIG=$TRAVIS_BUILD_DIR/config.json
   - ./setup.py install
   - ./bootstrap.sh
 

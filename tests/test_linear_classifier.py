@@ -43,3 +43,17 @@ class LinearClassifierTest(TestCase):
         self.assertTrue(numpy.array_equal(numpy.argmax(predicted_values, axis=1), numpy.array([0, 1, 1])))
 
         self.assertTrue(classifier.negative_log_likelihood() < 5)
+
+    def testLearnModel(self):
+        trainModel = Linearclassifier.TrainLinearClassifier(config.get_data('questions.train.txt'),
+                                                            config.get_data('answers.train.txt'),
+                                                            debug=False)
+
+        trainModel.train(n_epochs=5500, learning_rate=0.001, l2_reg=0.001)
+        ratio_train = trainModel.train_evaluation()
+        ratio_test = trainModel.test_evaluation(config.get_data('questions.test.txt'),
+                                   config.get_data('answers.test.txt'))
+        trainModel.save_model()
+
+        self.assertTrue(ratio_train > 0.7)
+        self.assertTrue(ratio_test > 0.5)

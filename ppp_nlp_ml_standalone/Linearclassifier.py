@@ -62,25 +62,25 @@ class TrainLinearClassifier:
 
     classifier = None
 
-    def __init__(self, file_train_in, file_train_out):
+    __debug = True
+
+    def __init__(self, file_train_in, file_train_out, debug=True):
         self.__build_x(file_train_in)
         self.__build_y(file_train_out)
 
         self.classifier = LogisticRegression(input_matrix=self.train_in, label=self.train_out, n_in=self.n_in,
                                              n_out=self.n_out)
-
-        print('Size of a vector: %d' % self.n_in)
+        self.__debug = debug
+        if self.__debug:
+            print('Size of a vector: %d' % self.n_in)
 
     def train(self, n_epochs=1500, learning_rate=0.001, l2_reg=0.001):
-        previous_cost = 100.
         for epoch in range(n_epochs):
             self.classifier.train(lr=learning_rate, L2_reg=l2_reg)
             cost = self.classifier.negative_log_likelihood()
-            if epoch % 50 == 0:
+            if epoch % 200 == 0 and self.__debug:
                 print('Training epoch %d, cost is ' % epoch, cost)
-            #if cost > 0.95 * previous_cost:
-            #    learning_rate *= 0.9999
-            previous_cost = cost
+
 
     def train_evaluation(self):
         #from sklearn.metrics import confusion_matrix
@@ -90,7 +90,9 @@ class TrainLinearClassifier:
 
         correct_answers = numpy.sum((estimated_answers_vector == answers_vector).astype('int'))
         ratio_correct_answers = float(correct_answers)/answers_vector.shape[0]
-        print('Ratio of correct answers on the training set: %f' % ratio_correct_answers)
+        if self.__debug:
+            print('Ratio of correct answers on the training set: %f' % ratio_correct_answers)
+        return ratio_correct_answers
         #print('Confusion Matrix: ')
         #print(confusion_matrix(estimated_answers_vector, answers_vector))
 
@@ -118,7 +120,10 @@ class TrainLinearClassifier:
 
         correct_answers = numpy.sum((estimated_answers_vector == answers_vector).astype('int'))
         ratio_correct_answers = float(correct_answers)/answers_vector.shape[0]
-        print('Ratio of correct answers on the test set: %f' % ratio_correct_answers)
+        if self.__debug:
+            print('Ratio of correct answers on the test set: %f' % ratio_correct_answers)
+
+        return ratio_correct_answers
         #print('Confusion Matrix: ')
         #print(confusion_matrix(estimated_answers_vector, answers_vector))
 

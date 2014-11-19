@@ -13,8 +13,8 @@ install:
 before_script:
   - ./dependencies.sh
   - ./setup.py install
-  - python3 demo/Dataset.py
-  - python3 demo/Learn.py
+  - python demo/Dataset.py
+  - python demo/Learn.py
 
 script:
   - coverage3 run run_tests.py

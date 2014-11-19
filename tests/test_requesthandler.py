@@ -1,20 +1,16 @@
 from unittest import TestCase
 from ppp_datamodel.communication import Request
 from ppp_datamodel import Triple, Resource, Missing
+from ppp_libmodule.tests import PPPTestCase
 
-from ppp_nlp_ml_standalone import RequestHandler
+from ppp_nlp_ml_standalone import app
 
-class RequestHandlerTest(TestCase):
+class RequestHandlerTest(PPPTestCase(app)):
     def testRH(self):
         j = {'id': '1', 'language': 'en', 'measures': {}, 'trace': [],
              'tree': {'type': 'sentence', 'value': 'What is the birth date of George Washington'}}
 
-
-        request = Request.from_dict(j)
-
-        rq = RequestHandler(request)
-
-        answer = rq.answer()
+        answer = self.request(j)
 
         self.assertEquals(len(answer), 1)
 

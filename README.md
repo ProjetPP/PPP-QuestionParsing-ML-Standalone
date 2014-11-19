@@ -17,7 +17,7 @@ Download the git depo:
 
 ```
 git clone https://github.com/ProjetPP/PPP-NLP-ML-standalone
-cd PPP-NLP-classical
+cd PPP-NLP-ML-standalone
 ```
 
 Download the look-up table:

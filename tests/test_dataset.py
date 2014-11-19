@@ -35,7 +35,7 @@ class DataSetTest(TestCase):
             self.assertIn(c, ['1', '2', '3', '4'])
 
     def testDataSet(self):
-        w_size = 4
+        w_size = 5
         en_dict = Dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
 
         data_set = Dataset.BuildDataSet(en_dict, config.get_data('AnnotatedQuestions.txt'), window_size=w_size)
@@ -55,7 +55,6 @@ class DataSetTest(TestCase):
         self.assertTrue(os.path.isfile(config.get_data('questions.test.txt')))
         self.assertTrue(os.path.isfile(config.get_data('answers.test.txt')))
         self.assertTrue(os.path.isfile(config.get_data('answers.train.txt')))
-
 
         nb_lines_questions = str(sum(1 for line in open(config.get_data('questions.train.txt'))))
         nb_lines_answers = str(sum(1 for line in open(config.get_data('answers.train.txt'))))

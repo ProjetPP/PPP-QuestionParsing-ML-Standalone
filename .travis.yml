@@ -11,10 +11,8 @@ install:
     - python -m nltk.downloader punkt
 
 before_script:
-  - ./dependencies.sh
   - ./setup.py install
-  - python demo/Dataset.py
-  - python demo/Learn.py
+  - ./bootstrap.sh
 
 script:
   - coverage3 run run_tests.py

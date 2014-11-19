@@ -7,8 +7,8 @@ import numpy
 class LinearClassifierTest(TestCase):
 
     def testUtils(self):
-        self.assertEquals(utils.sigmoid(0), 0.5)
-        self.assertEquals(utils.softmax([1,0,0]).shape[0], 3)
+        self.assertEqual(utils.sigmoid(0), 0.5)
+        self.assertEqual(utils.softmax([1,0,0]).shape[0], 3)
 
     def testLinearClassifier(self):
 
@@ -38,11 +38,11 @@ class LinearClassifierTest(TestCase):
         predicted_values = classifier.predict(value)
         sum_prob = numpy.sum(predicted_values, axis=1)
 
-        self.assertTrue(numpy.linalg.norm(sum_prob-numpy.array([1, 1, 1])) < 0.01)
+        self.assertLess(numpy.linalg.norm(sum_prob-numpy.array([1, 1, 1])), 0.01)
 
         self.assertTrue(numpy.array_equal(numpy.argmax(predicted_values, axis=1), numpy.array([0, 1, 1])))
 
-        self.assertTrue(classifier.negative_log_likelihood() < 5)
+        self.assertLess(classifier.negative_log_likelihood() 5)
 
     def testLearnModel(self):
         trainModel = Linearclassifier.TrainLinearClassifier(config.get_data('questions.train.txt'),
@@ -55,5 +55,5 @@ class LinearClassifierTest(TestCase):
                                    config.get_data('answers.test.txt'))
         trainModel.save_model()
 
-        self.assertTrue(ratio_train > 0.7)
-        self.assertTrue(ratio_test > 0.5)
+        self.assertGreater(ratio_train, 0.7)
+        self.assertGreater(ratio_test, 0.5)

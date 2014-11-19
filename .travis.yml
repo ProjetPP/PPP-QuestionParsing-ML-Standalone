@@ -12,6 +12,7 @@ install:
 
 before_script:
   - export PPP_NLP_STANDALONE_CONFIG=$TRAVIS_BUILD_DIR/config.json
+  - mkdir /tmp/ppp_nlp_standalone_data/
   - ./setup.py install
   - ./bootstrap.sh
   - mv data/embeddings* /tmp/ppp_nlp_standalone_data/

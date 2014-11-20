@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from ppp_nlp_ml_standalone import Linearclassifier, config
+from ppp_questionparsing_ml_standalone import Linearclassifier, config
 
 if __name__ == "__main__":
     trainModel = Linearclassifier.TrainLinearClassifier(config.get_data('questions.train.txt'),

@@ -1,2 +1,2 @@
 #!/bin/bash
-pylint --rcfile=.pylintrc ppp_nlp_ml_standalone
+pylint --rcfile=.pylintrc ppp_questionparsing_ml_standalone

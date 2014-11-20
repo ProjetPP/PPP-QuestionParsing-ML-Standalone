@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 import os
-from ppp_nlp_ml_standalone import Dataset, config
+from ppp_questionparsing_ml_standalone import Dataset, config
 
 
 class DataSetTest(TestCase):

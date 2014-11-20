@@ -1,4 +1,4 @@
-#PPP-NLP-ML-standalone
+#PPP-QuestionParsing-ML-standalone
 
 [![Build Status](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/build-status/master)
 [![Code Coverage](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/?branch=master)
@@ -44,7 +44,7 @@ gzip -d embeddings-scaled.EMBEDDING_SIZE=25.txt.gz
 
 ###Generate the data set
 
-The goal of ppp_nlp_ml_standalone/Dataset.py is to transform English questions in a vectorized form that is compatible
+The goal of ppp_questionparsing_ml_standalone/Dataset.py is to transform English questions in a vectorized form that is compatible
 with our ml model, according to a lookup table.
 
 The english data set of questions is in the file: data/AnnotatedQuestions.txt
@@ -80,7 +80,7 @@ Example:
 
 ##Use the tool with the server
 
-    gunicorn ppp_nlp_ml_standalone:app -b 127.0.0.1:8080
+    gunicorn ppp_questionparsing_ml_standalone:app -b 127.0.0.1:8080
 
 In a python shell:
 

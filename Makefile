@@ -10,7 +10,7 @@ localinstall:
 	$(PYTHON) setup.py install --user
 
 run:
-	gunicorn ppp_nlp_ml_standalone:app
+	gunicorn ppp_questionparsing_ml_standalone:app
 
 tests:
 	$(PYTHON) run_tests.py

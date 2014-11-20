@@ -3,7 +3,7 @@ from ppp_datamodel.communication import Request
 from ppp_datamodel import Triple, Resource, Missing
 from ppp_libmodule.tests import PPPTestCase
 
-from ppp_nlp_ml_standalone import app
+from ppp_questionparsing_ml_standalone import app
 
 class RequestHandlerTest(PPPTestCase(app)):
     def testRH(self):

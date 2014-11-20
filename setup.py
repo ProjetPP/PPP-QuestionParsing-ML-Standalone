@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name='ppp_nlp_ml_standalone',
+    name='ppp_questionparsing_ml_standalone',
     version='0.1.1',
     description='Compute triplets from a question, with an ML approach',
     url='https://github.com/ProjetPP',
@@ -33,7 +33,7 @@ setup(
         'numpy'
     ],
     packages=[
-        'ppp_nlp_ml_standalone',
+        'ppp_questionparsing_ml_standalone',
     ],
 
 )

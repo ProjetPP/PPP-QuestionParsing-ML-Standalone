@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from ppp_nlp_ml_standalone import Dataset, config
+from ppp_questionparsing_ml_standalone import Dataset, config
 
 if __name__ == '__main__':
     w_size = 5

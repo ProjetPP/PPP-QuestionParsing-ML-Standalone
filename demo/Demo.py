@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from ppp_nlp_ml_standalone import ExtractTriple
+from ppp_questionparsing_ml_standalone import ExtractTriple
 
 if __name__ == "__main__":
     extractTriple = ExtractTriple.ExtractTriple()

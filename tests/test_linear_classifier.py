@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from ppp_nlp_ml_standalone import Linearclassifier, utils, config
+from ppp_questionparsing_ml_standalone import Linearclassifier, utils, config
 import numpy
 
 

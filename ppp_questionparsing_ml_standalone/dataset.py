@@ -1,3 +1,4 @@
+import os
 import nltk
 import random
 import numpy
@@ -203,6 +204,9 @@ class BuildDataSet:
         self.__file = open(file, 'r')
         self.__window_size = window_size
 
+    def __del__(self):
+        self.__file.close()
+
     @staticmethod
     def format_question(question):
         if question[-1] == '?' or question[-1] == '.':
@@ -262,7 +266,9 @@ def create_dataset():
 
     en_dict = Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
 
-    data_set = BuildDataSet(en_dict, config.get_data('AnnotatedQuestions.txt'), window_size=w_size)
+    filename = os.path.join(os.path.dirname(__file__),
+                            'data/AnnotatedQuestions.txt')
+    data_set = BuildDataSet(en_dict, filename, window_size=w_size)
     data_set.build()
     data_set.save(config.get_data('questions'), config.get_data('answers'))
 

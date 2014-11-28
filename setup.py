@@ -35,6 +35,7 @@ setup(
     packages=[
         'ppp_questionparsing_ml_standalone',
     ],
+    package_data={'ppp_questionparsing_ml_standalone': ['data/*']},
 
 )
 

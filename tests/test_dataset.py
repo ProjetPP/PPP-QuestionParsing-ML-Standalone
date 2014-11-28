@@ -11,7 +11,9 @@ class DataSetTest(TestCase):
     #    self.assertEqual(os.path.abspath(path), os.path.abspath('data/test'))
 
     def testSentence(self):
-        en_dict = dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
+        filename = os.path.join(os.path.dirname(sys.modules['ppp_questionparsing_ml_standalone']),
+                                'data/AnnotatedQuestions.txt')
+        en_dict = dataset.Dictionary(filename)
         w_size = 5
         self.assertEquals(len(en_dict.word_to_vector('Obama')), en_dict.size_vectors)
         self.assertEquals(len(en_dict.word_to_vector('53')), en_dict.size_vectors)

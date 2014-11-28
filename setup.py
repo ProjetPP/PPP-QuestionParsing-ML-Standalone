@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='ppp_questionparsing_ml_standalone',
-    version='0.2',
+    version='0.2.1',
     description='Compute triplets from a question, with an ML approach',
     url='https://github.com/ProjetPP',
     author='Quentin Cormier',

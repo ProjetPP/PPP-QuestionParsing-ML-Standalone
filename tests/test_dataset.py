@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 import os
-from ppp_questionparsing_ml_standalone import Dataset, config
+from ppp_questionparsing_ml_standalone import dataset, config
 
 
 class DataSetTest(TestCase):
@@ -11,14 +11,14 @@ class DataSetTest(TestCase):
     #    self.assertEqual(os.path.abspath(path), os.path.abspath('data/test'))
 
     def testSentence(self):
-        en_dict = Dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
+        en_dict = dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
         w_size = 5
         self.assertEquals(len(en_dict.word_to_vector('Obama')), en_dict.size_vectors)
         self.assertEquals(len(en_dict.word_to_vector('53')), en_dict.size_vectors)
 
         sentence = 'What is the birth date of Obama?'
 
-        fs = Dataset.FormatSentence(sentence, en_dict, window_size=w_size,
+        fs = dataset.FormatSentence(sentence, en_dict, window_size=w_size,
                                     annotated_sentence=('Obama', 'birth date', '_'))
 
         self.assertEquals(fs.words, ['What', 'is', 'the', 'birth', 'date', 'of', 'Obama'])
@@ -36,9 +36,9 @@ class DataSetTest(TestCase):
 
     def testDataSet(self):
         w_size = 5
-        en_dict = Dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
+        en_dict = dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
 
-        data_set = Dataset.BuildDataSet(en_dict, config.get_data('AnnotatedQuestions.txt'), window_size=w_size)
+        data_set = dataset.BuildDataSet(en_dict, config.get_data('AnnotatedQuestions.txt'), window_size=w_size)
 
 
         self.assertEquals(data_set.format_question('Who are you?'), 'who are you')

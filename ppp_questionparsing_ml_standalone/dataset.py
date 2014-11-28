@@ -254,3 +254,22 @@ class BuildDataSet:
         f_in_test.close()
         f_out_train.close()
         f_out_test.close()
+
+
+def create_dataset():
+    """Function called when bootstraping to train the parser."""
+    w_size = 5
+
+    en_dict = Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
+
+    data_set = BuildDataSet(en_dict, config.get_data('AnnotatedQuestions.txt'), window_size=w_size)
+    data_set.build()
+    data_set.save(config.get_data('questions'), config.get_data('answers'))
+
+    print('Generated files saved in: \n' + config.get_data(''))
+
+    print('Database generated.')
+    print('Number of entries in the train set: ' +
+          str(sum(1 for line in open(config.get_data('questions.train.txt')))))
+    print('Number of entries in the test set: ' +
+          str(sum(1 for line in open(config.get_data('questions.test.txt')))))

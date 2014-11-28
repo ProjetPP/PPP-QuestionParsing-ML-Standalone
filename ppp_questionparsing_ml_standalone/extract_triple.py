@@ -1,7 +1,7 @@
 import os
 import numpy
 
-from . import Dataset, Linearclassifier, config
+from . import dataset, linear_classifier, config
 
 
 class ExtractTriple:
@@ -11,8 +11,8 @@ class ExtractTriple:
     __method = ""
 
     def __init__(self, method="PythonLinear"):
-        self.__dictionary = Dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
-        p = Linearclassifier.Predict()
+        self.__dictionary = dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
+        p = linear_classifier.Predict()
         self.__linear_predict = p
         self.__method = method
 
@@ -20,7 +20,7 @@ class ExtractTriple:
         self.__method = method
 
     def extract_from_sentence(self, sentence):
-        self.__fs = Dataset.FormatSentence(sentence, self.__dictionary, window_size=5)
+        self.__fs = dataset.FormatSentence(sentence, self.__dictionary, window_size=5)
 
         if self.__method == "PythonLinear":
             input_matrix = self.__fs.numpy_input()
@@ -28,7 +28,7 @@ class ExtractTriple:
             return self.get_triplet(numpy.argmax(output_matrix, axis=1))
 
         elif self.__method == "LuaLinear":
-            fs = Dataset.FormatSentence(sentence, self.__dictionary)
+            fs = dataset.FormatSentence(sentence, self.__dictionary)
             file = open(config.get_config_path() + 'input.txt', 'w')
             file.write(fs.data_set_input())
             file.close()

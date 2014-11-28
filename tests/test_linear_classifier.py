@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from ppp_questionparsing_ml_standalone import Linearclassifier, utils, config
+from ppp_questionparsing_ml_standalone import linear_classifier, utils, config
 import numpy
 
 
@@ -25,7 +25,7 @@ class LinearClassifierTest(TestCase):
                         [0, 1],
                         [0, 1]])
 
-        classifier = Linearclassifier.LogisticRegression(x, y, 6, 2)
+        classifier = linear_classifier.LogisticRegression(x, y, 6, 2)
 
         for i in range(1, 100):
             classifier.train(lr=0.01)
@@ -45,7 +45,7 @@ class LinearClassifierTest(TestCase):
         self.assertLess(classifier.negative_log_likelihood(), 5)
 
     def testLearnModel(self):
-        trainModel = Linearclassifier.TrainLinearClassifier(config.get_data('questions.train.txt'),
+        trainModel = linear_classifier.TrainLinearClassifier(config.get_data('questions.train.txt'),
                                                             config.get_data('answers.train.txt'),
                                                             debug=False)
 

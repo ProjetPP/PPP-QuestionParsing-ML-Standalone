@@ -214,6 +214,14 @@ class BuildDataSet:
         else:
             return question.lower()
 
+    def addSentence(self,raw_sentence,format_sentence):
+        self.data_set_input.append(format_sentence.data_set_input())
+        self.data_set_output.append(format_sentence.data_set_output())
+        if raw_sentence in self.__sentences:
+            print('Warning: the sentence ' + raw_sentence + ' is already in the dataset')
+        else:
+            self.__sentences[raw_sentence] = True
+
     def build(self):
         for i in range(0, int((self.__number_lines+1)/3)):
             sentence = self.__file.readline()[:-1]
@@ -232,13 +240,8 @@ class BuildDataSet:
 
             a_sentence = (a, b, c)
             f_s = FormatSentence(sentence, self.__dictionary, a_sentence, window_size=self.__window_size)
-
-            self.data_set_input.append(f_s.data_set_input())
-            self.data_set_output.append(f_s.data_set_output())
-            if self.format_question(sentence) in self.__sentences:
-                print('Warning: the sentence ' + sentence + ' is already in the dataset')
-            else:
-                self.__sentences[self.format_question(sentence)] = True
+            sentence=self.format_question(sentence)
+            self.addSentence(sentence,f_s)
 
     def save(self, file_input, file_output):
         f_in_train = open(file_input + '.train.txt', 'w')
@@ -260,15 +263,17 @@ class BuildDataSet:
         f_out_test.close()
 
     def generateSentence(self,subject,predicate):
+        """
+            Add all possible triples with a missing object, and the given subject and predicate.
+            Subject must be a string.
+            Predicate must be a list of string.
+            self.generateSentence('foo',['bar1','bar2','bar3']) will generate all permutations of
+                {'foo','bar1','bar2','bar3'}, associated to the triple ('foo', 'bar1 bar2 bar3', ?)
+        """
         triple = (subject," ".join(predicate),"")
         for sentence in itertools.permutations(predicate.append(subject)):
             f_s = FormatSentence(" ".join(perm),self.__dictionary,triple,self.__window_size)
-            self.data_set_input.append(f_s.data_set_input())
-            self.data_set_output.append(f_s.data_set_output())
-            if self.format_question(sentence) in self.__sentences:
-                print('Warning: the sentence ' + sentence + ' is already in the dataset')
-            else:
-                self.__sentences[self.format_question(sentence)] = True
+            self.addSentence(sentence,triple)
 
 
 def create_dataset():

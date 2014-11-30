@@ -259,6 +259,17 @@ class BuildDataSet:
         f_out_train.close()
         f_out_test.close()
 
+    def generateSentence(self,subject,predicate):
+        triple = (subject," ".join(predicate),"")
+        for sentence in itertools.permutations(predicate.append(subject)):
+            f_s = FormatSentence(" ".join(perm),self.__dictionary,triple,self.__window_size)
+            self.data_set_input.append(f_s.data_set_input())
+            self.data_set_output.append(f_s.data_set_output())
+            if self.format_question(sentence) in self.__sentences:
+                print('Warning: the sentence ' + sentence + ' is already in the dataset')
+            else:
+                self.__sentences[self.format_question(sentence)] = True
+
 
 def create_dataset():
     """Function called when bootstraping to train the parser."""

@@ -275,6 +275,53 @@ class BuildDataSet:
             f_s = FormatSentence(" ".join(perm),self.__dictionary,triple,self.__window_size)
             self.addSentence(sentence,triple)
 
+    def generate_person(self):
+        for p in dataset_generation.person:
+            for ev in {"death","birth"}:
+                for obj in {"place","date"}:
+                    self.generate_data(p,[obj,ev])
+
+    def generate_country(self):
+        for c in dataset_generation.country:
+            self.generate_data(c,["president"])
+            self.generate_data(c,["prime", "minister"])
+
+    def generate_city(self):
+        for c in dataset_generation.city:
+            self.generate_data(c,["mayor"])
+
+    def generate_location(self):
+        for l in dataset_generation.location:
+            self.generate_data(l,["population"])
+
+    def generate_film(self):
+        for f in dataset_generation.film:
+            self.generate_data(f,["cast","member"])
+            self.generate_data(f,["director"])
+
+    def generate_book(self):
+        for b in dataset_generation.book:
+            self.generate_data(b,["original","language"])
+            self.generate_data(b,["author"])
+
+    def generate_single(self):
+        for s in dataset_generation.single:
+            self.generate_data(s,["record","label"])
+
+    def generate_art(self):
+        for a in dataset_generation.art:
+            self.generate_data(a,["official","website"])
+            self.generate_data(a,["date","publication"])
+
+    def generate_all(self):
+        self.generate_person()
+        self.generate_country()
+        self.generate_city()
+        self.generate_location()
+        self.generate_film()
+        self.generate_book()
+        self.generate_single()
+        self.generate_art()
 
 def create_dataset():
     """Function called when bootstraping to train the parser."""
@@ -286,6 +333,7 @@ def create_dataset():
                             'data/AnnotatedQuestions.txt')
     data_set = BuildDataSet(en_dict, filename, window_size=w_size)
     data_set.build()
+    dataset.generate_all()
     data_set.save(config.get_data('questions'), config.get_data('answers'))
 
     print('Generated files saved in: \n' + config.get_data(''))

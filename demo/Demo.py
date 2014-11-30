@@ -2,7 +2,7 @@
 from ppp_questionparsing_ml_standalone import ExtractTriple
 
 if __name__ == "__main__":
-    extractTriple = ExtractTriple.ExtractTriple()
+    extractTriple = ExtractTriple()
     lua = False
     while True:
         s = input()

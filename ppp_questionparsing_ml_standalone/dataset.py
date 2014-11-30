@@ -336,7 +336,7 @@ def create_dataset():
                             'data/AnnotatedQuestions.txt')
     data_set = BuildDataSet(en_dict, filename, window_size=w_size)
     data_set.build()
-    dataset.generate_all()
+    data_set.generate_all()
     data_set.save(config.get_data('questions'), config.get_data('answers'))
 
     print('Generated files saved in: \n' + config.get_data(''))

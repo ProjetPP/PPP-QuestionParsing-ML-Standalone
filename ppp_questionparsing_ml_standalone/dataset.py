@@ -271,6 +271,8 @@ class BuildDataSet:
             self.generateSentence('foo',['bar1','bar2','bar3']) will generate all permutations of
                 {'foo','bar1','bar2','bar3'}, associated to the triple ('foo', 'bar1 bar2 bar3', ?)
         """
+        subject = subject.lower()
+        predicate = [p.lower() for p in predicate]
         triple = (subject," ".join(predicate),"")
         for sentence in itertools.permutations(predicate+[subject]):
             f_s = FormatSentence(" ".join(sentence),self.__dictionary,triple,self.__window_size)

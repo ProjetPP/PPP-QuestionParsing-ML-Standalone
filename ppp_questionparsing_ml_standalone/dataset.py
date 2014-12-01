@@ -2,8 +2,9 @@ import os
 import nltk
 import random
 import numpy
+import itertools
 
-from . import config
+from . import config, dataset_generation
 
 
 class Dictionary:
@@ -214,6 +215,14 @@ class BuildDataSet:
         else:
             return question.lower()
 
+    def addSentence(self,raw_sentence,format_sentence):
+        self.data_set_input.append(format_sentence.data_set_input())
+        self.data_set_output.append(format_sentence.data_set_output())
+        if raw_sentence in self.__sentences:
+            print('Warning: the sentence ' + raw_sentence + ' is already in the dataset')
+        else:
+            self.__sentences[raw_sentence] = True
+
     def build(self):
         for i in range(0, int((self.__number_lines+1)/3)):
             sentence = self.__file.readline()[:-1]
@@ -232,13 +241,8 @@ class BuildDataSet:
 
             a_sentence = (a, b, c)
             f_s = FormatSentence(sentence, self.__dictionary, a_sentence, window_size=self.__window_size)
-
-            self.data_set_input.append(f_s.data_set_input())
-            self.data_set_output.append(f_s.data_set_output())
-            if self.format_question(sentence) in self.__sentences:
-                print('Warning: the sentence ' + sentence + ' is already in the dataset')
-            else:
-                self.__sentences[self.format_question(sentence)] = True
+            sentence=self.format_question(sentence)
+            self.addSentence(sentence,f_s)
 
     def save(self, file_input, file_output):
         f_in_train = open(file_input + '.train.txt', 'w')
@@ -259,6 +263,68 @@ class BuildDataSet:
         f_out_train.close()
         f_out_test.close()
 
+    def generateSentence(self,subject,predicate):
+        """
+            Add all possible triples with a missing object, and the given subject and predicate.
+            Subject must be a string.
+            Predicate must be a list of string.
+            self.generateSentence('foo',['bar1','bar2','bar3']) will generate all permutations of
+                {'foo','bar1','bar2','bar3'}, associated to the triple ('foo', 'bar1 bar2 bar3', ?)
+        """
+        subject = subject.lower()
+        predicate = [p.lower() for p in predicate]
+        triple = (subject," ".join(predicate),"")
+        for sentence in itertools.permutations(predicate+[subject]):
+            f_s = FormatSentence(" ".join(sentence),self.__dictionary,triple,self.__window_size)
+            self.addSentence(sentence,f_s)
+
+    def generate_person(self):
+        for p in dataset_generation.person:
+            for ev in {"death","birth"}:
+                for obj in {"place","date"}:
+                    self.generateSentence(p,[obj,ev])
+
+    def generate_country(self):
+        for c in dataset_generation.country:
+            self.generateSentence(c,["president"])
+            self.generateSentence(c,["prime", "minister"])
+
+    def generate_city(self):
+        for c in dataset_generation.city:
+            self.generateSentence(c,["mayor"])
+
+    def generate_location(self):
+        for l in dataset_generation.location:
+            self.generateSentence(l,["population"])
+
+    def generate_film(self):
+        for f in dataset_generation.film:
+            self.generateSentence(f,["cast","member"])
+            self.generateSentence(f,["director"])
+
+    def generate_book(self):
+        for b in dataset_generation.book:
+            self.generateSentence(b,["original","language"])
+            self.generateSentence(b,["author"])
+
+    def generate_single(self):
+        for s in dataset_generation.single:
+            self.generateSentence(s,["record","label"])
+
+    def generate_art(self):
+        for a in dataset_generation.art:
+            self.generateSentence(a,["official","website"])
+            self.generateSentence(a,["date","publication"])
+
+    def generate_all(self):
+        self.generate_person()
+        self.generate_country()
+        self.generate_city()
+        self.generate_location()
+        self.generate_film()
+        self.generate_book()
+        self.generate_single()
+        self.generate_art()
 
 def create_dataset():
     """Function called when bootstraping to train the parser."""
@@ -270,6 +336,7 @@ def create_dataset():
                             'data/AnnotatedQuestions.txt')
     data_set = BuildDataSet(en_dict, filename, window_size=w_size)
     data_set.build()
+    data_set.generate_all()
     data_set.save(config.get_data('questions'), config.get_data('answers'))
 
     print('Generated files saved in: \n' + config.get_data(''))

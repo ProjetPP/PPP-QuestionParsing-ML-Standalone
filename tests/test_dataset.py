@@ -49,6 +49,7 @@ class DataSetTest(TestCase):
         self.assertEquals(data_set.format_question('Who are you.'), 'who are you')
 
         data_set.build()
+        data_set.generate_all()
 
         self.assertEquals(len(data_set.data_set_input), len(data_set.data_set_output))
 

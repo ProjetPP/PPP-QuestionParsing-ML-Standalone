@@ -9,6 +9,7 @@ from .triple_extractor import TripleExtractor
 def missing_or_resource(x):
     return Missing() if x == '?' else Resource(value=x)
 
+triple_extractor = TripleExtractor()
 
 class RequestHandler:
     def __init__(self, request):
@@ -19,7 +20,6 @@ class RequestHandler:
             return []
 
         sentence = self.request.tree.value
-        triple_extractor = TripleExtractor()
         triple = triple_extractor.extract_from_sentence(sentence)
         (subject, predicate, object) = map(missing_or_resource, triple)
 

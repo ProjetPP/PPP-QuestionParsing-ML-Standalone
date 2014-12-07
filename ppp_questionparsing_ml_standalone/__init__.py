@@ -2,7 +2,7 @@
 
 from ppp_libmodule import HttpRequestHandler
 from .requesthandler import RequestHandler
-from .extract_triple import ExtractTriple
+from .triple_extractor import TripleExtractor
 
 def app(environ, start_response):
     """Function called by the WSGI server."""

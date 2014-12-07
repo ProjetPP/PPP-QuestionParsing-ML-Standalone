@@ -9,10 +9,13 @@ from .triple_extractor import TripleExtractor
 def missing_or_resource(x):
     return Missing() if x == '?' else Resource(value=x)
 
-triple_extractor = TripleExtractor()
+triple_extractor = None
 
 class RequestHandler:
     def __init__(self, request):
+        global triple_extractor
+        if not triple_extractor:
+            triple_extractor = TripleExtractor()
         self.request = request
 
     def answer(self):

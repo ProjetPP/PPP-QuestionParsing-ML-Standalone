@@ -1,8 +1,8 @@
 #PPP-QuestionParsing-ML-standalone
 
-[![Build Status](https://travis-ci.org/ProjetPP/PPP-QuestionParsing-ML-Standalone.svg?branch=master)](https://travis-ci.org/ProjetPP/PPP-QuestionParsing-ML-Standalone)
-[![Code Coverage](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ProjetPP/PPP-NLP-ML-standalone/?branch=master)
+[![Build Status](https://travis-ci.org/ProjetPP/PPP-QuestionParsing-ML-Standalone.svg?branch=master)](https://travis-ci.org/ProjetPP/PPP-QuestionParsing-ML-standalone)
+[![Code Coverage](https://scrutinizer-ci.com/g/ProjetPP/PPP-QuestionParsing-ML-standalone/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ProjetPP/PPP-QuestionParsing-ML-standalone/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ProjetPP/PPP-QuestionParsing-ML-standalone/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ProjetPP/PPP-QuestionParsing-ML-standalone/?branch=master)
 
 The goal is to understand the semantic of an English question.
 
@@ -16,7 +16,7 @@ You can find some examples of this transformation is the file data/AnnotatedQues
 Download the git depo:
 
 ```
-git clone https://github.com/ProjetPP/PPP-NLP-ML-standalone
+git clone https://github.com/ProjetPP/PPP-QuestionParsing-ML-standalone
 cd PPP-NLP-ML-standalone
 ```
 

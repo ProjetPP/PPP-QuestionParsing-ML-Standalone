@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-from ppp_questionparsing_ml_standalone import ExtractTriple
+from ppp_questionparsing_ml_standalone import extract_triple
 
 if __name__ == "__main__":
-    extractTriple = ExtractTriple.ExtractTriple()
+    extractTriple = extract_triple.ExtractTriple()
     lua = False
     while True:
         s = input()

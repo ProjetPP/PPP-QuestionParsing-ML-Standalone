@@ -3,7 +3,7 @@ import nltk
 import random
 import numpy
 
-from . import config
+from . import config, preprocessing
 
 
 class Dictionary:
@@ -17,7 +17,7 @@ class Dictionary:
     __number_words = 20000
     size_vectors = 26
 
-    def __init__(self, path, number_words=20000, size_vectors=26):
+    def __init__(self, path='', number_words=20000, size_vectors=26):
         self.size_vectors = size_vectors
         self.__number_words = number_words
 
@@ -80,7 +80,7 @@ class FormatSentence:
         else:
             self.sentence = raw_sentence
 
-        self.words = nltk.word_tokenize(self.sentence)
+        self.words = preprocessing.PreProcessing.tokenize(self.sentence)
         self.__null_vector = self.__vector_to_string(self, [0.0] * self.__size_vector)
         self.__dictionary = dictionary
 

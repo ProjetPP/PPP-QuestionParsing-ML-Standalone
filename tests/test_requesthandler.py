@@ -8,7 +8,7 @@ from ppp_questionparsing_ml_standalone import app
 class RequestHandlerTest(PPPTestCase(app)):
     def testRH(self):
         j = {'id': '1', 'language': 'en', 'measures': {}, 'trace': [],
-             'tree': {'type': 'sentence', 'value': 'What is the birth date of George Washington'}}
+             'tree': {'type': 'sentence', 'value': 'birth date George Washington'}}
 
         answer = self.request(j)
 

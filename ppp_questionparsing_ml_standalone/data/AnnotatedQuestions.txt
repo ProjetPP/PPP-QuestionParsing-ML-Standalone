@@ -101,19 +101,13 @@ Birth date of Barack Obama
 Barack Obama | birth date | _
 
 Who is the author of the book, "The Iron Lady: A Biography of Margaret Thatcher"?
-book The Iron Lady: A Biography Margaret Thatcher | author | _
-
-Who is the author of the book "The Iron Lady: A Biography of Margaret Thatcher"?
-book The Iron Lady: A Biography Margaret Thatcher | author | _
-
-Who is the author of the book, "The Iron Lady"?
-book The Iron Lady | author | _
+"The Iron Lady: A Biography of Margaret Thatcher" | author | _
 
 Who is the author of the book, The Iron Lady: A Biography of Margaret Thatcher?
-book The Iron Lady: A Biography Margaret Thatcher | author | _
+The Iron Lady: A Biography of Margaret Thatcher | author | _
 
 Who is the author of the book, The Iron Lady?
-book The Iron Lady | author | _
+The Iron Lady | author | _
 
 What was the monetary value of the Nobel Peace Prize in 1989?
 Nobel Peace Prize | monetary value in 1989 | _
@@ -131,7 +125,7 @@ How far is Yaroslavl from Moscow?
 Yaroslavl from Moscow | How far | _
 
 Name the designer of the shoe that spawned millions of plastic imitations, known as "jellies".
-jellies shoe | designer | _
+"jellies" shoe | designer | _
 
 Who was President Cleveland's wife?
 President Cleveland | wife | _
@@ -314,22 +308,22 @@ What does RAS mean?
 RAS | mean | _
 
 What does "R.A.S." mean?
-R.A.S. | mean | _
+"R.A.S." | mean | _
 
 What does "RAS" mean?
-RAS | mean | _
+"RAS" | mean | _
 
 Who are the actors of The graduate?
 The graduate | actors | _
 
 Who are the actors of "The graduate"?
-The graduate | actors | _
+"The graduate" | actors | _
 
 Who are the actors of Her?
 Her | actors | _
 
 Who are the actors of "Her"?
-Her | actors | _
+"Her" | actors | _
 
 Who was the saxophonist of James Brown?
 James Brown | saxophonist | _
@@ -341,7 +335,7 @@ Who sing the sound of silence?
 the sound of silence | who sing | _
 
 Who sing "the sound of silence"?
-the sound of silence | who sing | _
+"the sound of silence" | who sing | _
 
 When Microsoft was created?
 Microsoft | when was created | _
@@ -353,25 +347,25 @@ When the robot Cocotix of Robotix was created?
 robot Cocotix of Robotix | when was created | _
 
 When the robot "Cocotix" of Robotix was created?
-robot Cocotix of Robotix | when was created | _
+robot "Cocotix" of Robotix | when was created | _
 
 When Cocotix of Robotix was created?
 Cocotix of Robotix | when was created | _
 
 When "Cocotix" of Robotix was created?
-Cocotix of Robotix | when was created | _
+"Cocotix" of Robotix | when was created | _
 
 Say Bonjour in English
 Bonjour | in English | _
 
 Say "Bonjour" in English
-Bonjour | in English | _
+"Bonjour" | in English | _
 
 Say Hello Sir in French
 Hello Sir | in French | _
 
 Say "Hello Sir" in French
-Hello Sir | in French | _
+"Hello Sir" | in French | _
 
 Price of bananas in France since 10 years
 bananas | Price in France since 10 years | _
@@ -395,10 +389,10 @@ Who is the managing director of Masourie Corporation?
 Masourie | managing director | _
 
 Who is the managing director of "Masourie"?
-Masourie | managing director | _
+"Masourie" | managing director | _
 
 Who is the managing director of "Masourie Corporation"?
-Masourie Corporation | managing director | _
+"Masourie Corporation" | managing director | _
 
 Who was President of Afghanistan in 1994?
 Afghanistan in 1994 | President | _
@@ -440,7 +434,7 @@ What was the first Gilbert and Sullivan opera?
 Gilbert and Sullivan opera | the first | _
 
 What was the name of the computer in "2001: A Space Odyssey"?
-2001: A Space Odyssey | name of the computer | _
+"2001: A Space Odyssey" | name of the computer | _
 
 When was Queen Victoria born?
 Queen Victoria | when was born | _
@@ -473,13 +467,13 @@ Who was the 16th President of the United States?
 United States | 16th President | _
 
 Who wrote "The Pines of Rome"?
-The Pines of Rome | who wrote | _
+"The Pines of Rome" | who wrote | _
 
 Who wrote "Dubliners"?
-Dubliners | who wrote | _
+"Dubliners" | who wrote | _
 
 Who wrote "Hamlet"?
-Hamlet | who wrote | _
+"Hamlet" | who wrote | _
 
 What did Richard Feynman say upon hearing he would receive the Nobel Prize in Physics?
 Richard Feynman | What did say upon hearing he would receive the Nobel Prize | _

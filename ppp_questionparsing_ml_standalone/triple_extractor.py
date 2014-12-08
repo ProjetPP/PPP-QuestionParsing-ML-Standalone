@@ -4,7 +4,7 @@ import numpy
 from . import dataset, linear_classifier, config
 
 
-class ExtractTriple:
+class TripleExtractor:
     __dictionary = None
     __linear_predict = None
     __fs = None

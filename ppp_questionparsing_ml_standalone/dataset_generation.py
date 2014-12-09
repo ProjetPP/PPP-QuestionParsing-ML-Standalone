@@ -45,7 +45,6 @@ location = country+city+[
 
 book = [
     "A Tale of Two Cities",
-    "The Lord of the Rings",
     "Le Petit Prince",
     "Harry Potter and the Philosopher's Stone",
     "And Then There Were None",
@@ -62,14 +61,12 @@ film = [
     "Frozen",
     "Iron Man 3",
     "Transformers: Dark of the Moon",
-    "The Lord of the Rings: The Return of the King"
 ]
 
 single = [
     "White Christmas",
     "I Will Always Love You",
     "We Are the World",
-    "Da Da Da",
     "Hey Jude",
     "Bohemian Rhapsody"
 ]

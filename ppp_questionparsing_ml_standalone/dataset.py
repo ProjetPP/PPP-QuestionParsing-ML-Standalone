@@ -1,5 +1,5 @@
 import os
-import nltk
+import nltk, re
 import random
 import numpy
 import itertools
@@ -147,41 +147,85 @@ class FormatSentence:
         return matrix
 
 
-    #return a vector of the output, if the sentence is annotated.
+
 
     @staticmethod
     def __lower_list(l):
         return list(map(lambda x: x.lower(), l))
 
+    @staticmethod
+    def __occurrence_words(word):
+        match_obj = re.match(r'(.*)/(\d)+', word, re.M|re.I)
+        if match_obj:
+            return True, match_obj.group(1), int(match_obj.group(2))
+        else:
+            return False, word, 1
+
+    @staticmethod
+    def compute_occurrences_sentence(words_sentence):
+        words_occurrences = {}
+        output = []
+
+        for w in words_sentence:
+            if w in words_occurrences:
+                words_occurrences[w] += 1
+            else:
+                words_occurrences[w] = 1
+            output.append((w, words_occurrences[w]))
+
+        return output
+
     def data_set_output(self):
         if self.__is_annotated:
-            words_subject = self.__lower_list(preprocessing.PreProcessing.tokenize(self.__annotated_sentence[0]))
-            words_predicate = self.__lower_list(preprocessing.PreProcessing.tokenize(self.__annotated_sentence[1]))
-            words_object = self.__lower_list(preprocessing.PreProcessing.tokenize(self.__annotated_sentence[2]))
-            words_sentence = self.__lower_list(self.words)
+            words_subject = list(map(self.__occurrence_words,
+                                     self.__lower_list(
+                                         preprocessing.PreProcessing.tokenize(self.__annotated_sentence[0]))))
 
-            #print(words_subject)
+            words_predicate = list(map(self.__occurrence_words,
+                                       self.__lower_list(
+                                           preprocessing.PreProcessing.tokenize(self.__annotated_sentence[1]))))
+            words_object = list(map(self.__occurrence_words,
+                                    self.__lower_list(
+                                        preprocessing.PreProcessing.tokenize(self.__annotated_sentence[2]))))
+
+            words_sentence = self.__lower_list(self.words)
+            words_occurrences = self.compute_occurrences_sentence(words_sentence)
 
             def check(l_words):
-                if l_words != ['_']:
-                    for w_l in l_words:
-                        if not (w_l in words_sentence):
-                            print('Warning: ' + w_l + ' is not in the sentence ' + self.sentence)
+                if l_words != [(False, '_', 1)]:
+                    for (is_annotated_word, word, pos) in l_words:
+                        if (not is_annotated_word) and words_sentence.count(word) > 1:
+                            print('Warning: the word "%s" as more than one occurrence in the sentence \n %s \n'
+                                  % (word, self.sentence))
+
+                        if not ((word, pos) in words_occurrences):
+                            print('Warning: %s is not in the sentence %s' % (word, self.sentence))
+
+            def check_unique(l_a, l_b):
+                intersection = set(l_a).intersection(set(l_b))
+                if len(intersection) > 0:
+                    print('Warning: there exist one element that is present in more than one group in the '
+                          'sentence \n %s', self.sentence)
+
             check(words_subject)
             check(words_predicate)
             check(words_object)
 
-            output = ''
+            check_unique(words_subject, words_predicate)
+            check_unique(words_predicate, words_object)
+            check_unique(words_subject, words_object)
 
-            for w in self.words:
-                if w.lower() in words_subject:
+            output = ''
+            for (w,n) in words_occurrences :
+                if (True, w, n) in words_subject or (False, w, n) in words_subject:
                     output += '1\n'
-                elif w.lower() in words_object:
+                elif (True, w, n) in words_object or (False, w, n) in words_object:
                     output += '3\n'
-                elif w.lower() in words_predicate:
+                elif (True, w, n) in words_predicate or (False, w, n) in words_predicate:
                     output += '2\n'
                 else:
                     output += '4\n'
+
             return output
         else:
             return ''
@@ -252,7 +296,7 @@ class BuildDataSet:
         f_out_test = open(file_output + '.test.txt', 'w')
 
         for i in range(1, len(self.data_set_output)):
-            if random.random() < 0.2:
+            if random.random() < 0.1:
                 f_in_test.write(self.data_set_input[i])
                 f_out_test.write(self.data_set_output[i])
             else:
@@ -276,14 +320,15 @@ class BuildDataSet:
         predicate = [p.lower() for p in predicate]
         triple = (subject," ".join(predicate),"")
         for sentence in itertools.permutations(predicate+[subject]):
-            f_s = FormatSentence(" ".join(sentence),self.__dictionary,triple,self.__window_size)
+            s = " ".join(sentence)
+            f_s = FormatSentence(s, self.__dictionary,triple,self.__window_size)
             self.addSentence(sentence,f_s)
 
     def generate_person(self):
         for p in dataset_generation.person:
-            for ev in {"death","birth"}:
-                for obj in {"place","date"}:
-                    self.generateSentence(p,[obj,ev])
+            for ev in {"death", "birth"}:
+                for obj in {"place", "date"}:
+                    self.generateSentence(p, [obj, ev])
 
     def generate_country(self):
         for c in dataset_generation.country:

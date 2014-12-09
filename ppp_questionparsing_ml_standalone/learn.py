@@ -1,5 +1,6 @@
 from . import linear_classifier, config
 
+
 def learn():
     """Function called while bootstrapping."""
     trainModel = linear_classifier.TrainLinearClassifier(config.get_data('questions.train.txt'),

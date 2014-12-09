@@ -104,10 +104,10 @@ Who is the author of the book, "The Iron Lady: A Biography of Margaret Thatcher"
 "The Iron Lady: A Biography of Margaret Thatcher" | author | _
 
 Who is the author of the book, The Iron Lady: A Biography of Margaret Thatcher?
-The Iron Lady: A Biography of Margaret Thatcher | author | _
+The/2 Iron Lady: A Biography of/2 Margaret Thatcher | author | _
 
 Who is the author of the book, The Iron Lady?
-The Iron Lady | author | _
+The/2 Iron Lady | author | _
 
 What was the monetary value of the Nobel Peace Prize in 1989?
 Nobel Peace Prize | monetary value in 1989 | _
@@ -119,7 +119,7 @@ How much did Mercury spend on advertising in 1993?
 Mercury | how much much spend on advertising in 1993 | _
 
 What is the name of the managing director of Apricot Computer?
-Apricot Computer | name of the managing director | _
+Apricot Computer | name of/1 the/2 managing director | _
 
 How far is Yaroslavl from Moscow?
 Yaroslavl from Moscow | How far | _
@@ -149,7 +149,7 @@ Who was the first Taiwanese President?
 Taiwanese | first president | _
 
 Who was the leader of the Branch Davidian Cult confronted by the FBI in Waco, Texas in 1993?
-Branch Davidian Cult | leader in Waco, Texas in 1993 | _
+Branch Davidian Cult | leader in/1 Waco, Texas in/2 1993 | _
 
 Where is Inoco based?
 Inoco| where is | _
@@ -200,7 +200,7 @@ Where was George Washington born?
 George Washington | Where was born | _
 
 Who was chosen to be the first black chairman of the military Joint Chiefs of Staff?
-the first black chairman of the military Joint Chiefs of Staff | was chosen to be | _
+the/1 first black chairman of/1 the/2 military Joint Chiefs of/2 Staff | was chosen to be | _
 
 Who won the Nobel Peace Prize in 1991?
 the Nobel Peace Prize in 1991 | who won |  _
@@ -224,7 +224,7 @@ What company is the largest Japanese ship builder?
 company | largest Japanese ship builder | _
 
 Who is the director of the international group called the Human Genome Organization (HUGO) that is trying to coordinate gene-mapping research worldwide?
-director of Human Genome Organization | who is | _
+director of Human Genome Organization | who is/1 | _
 
 Where is the massive North Korean nuclear complex located?
 North Korean nuclear complex | located | _
@@ -252,9 +252,6 @@ Quentin | enemy | _
 
 Who is the enemy of Quentin?
 Quentin | enemy | _
-
-Is Paris in France?
-Paris | is in | France
 
 Name of the president of United States
 United States | president | _
@@ -290,10 +287,10 @@ How many calories are there in a Big Mac?
 Big Mac | how many calories | _
 
 What is the acronym for the rating system for air conditioner efficiency?
-rating system for air conditioner efficiency | acronym | _
+rating system for/2 air conditioner efficiency | acronym | _
 
 Name a film that has won the Golden Bear in the Berlin Film Festival?
-the Golden Bear in the Berlin Film Festival | has won | _
+the/1 Golden Bear in the/2 Berlin Film/2 Festival | has won | _
 
 Who was President of Costa Rica in 1994?
 Costa Rica in 1994 | President | _
@@ -314,7 +311,7 @@ What does "RAS" mean?
 "RAS" | mean | _
 
 Who are the actors of The graduate?
-The graduate | actors | _
+The/2 graduate | actors | _
 
 Who are the actors of "The graduate"?
 "The graduate" | actors | _
@@ -374,10 +371,10 @@ Price of bananas in France
 bananas | Price in France | _
 
 Evolution of the price of bananas since 10 years
-bananas | Evolution of the price since 10 years | _
+bananas | Evolution of/1 the price since 10 years | _
 
 Evolution of the price of bananas
-bananas | Evolution of the price | _
+bananas | Evolution of/1 the price | _
 
 Price of bananas
 bananas | price | _
@@ -434,16 +431,16 @@ What was the first Gilbert and Sullivan opera?
 Gilbert and Sullivan opera | the first | _
 
 What was the name of the computer in "2001: A Space Odyssey"?
-"2001: A Space Odyssey" | name of the computer | _
+"2001: A Space Odyssey" | name of the/2 computer | _
 
 When was Queen Victoria born?
 Queen Victoria | when was born | _
 
 When was the battle of the Somme fought?
-battle of the Somme | when was | _
+battle of the/2 Somme | when was | _
 
 Where did the Battle of the Bulge take place?
-Battle of the Bulge | Where did | _
+Battle of the/2 Bulge | Where did | _
 
 Where was Lincoln assassinated?
 Lincoln | where was assassinated | _
@@ -485,7 +482,7 @@ How tall is the Matterhorn?
 the Matterhorn | how tall | _
 
 How tall is the replica of the Matterhorn at Disneyland?
-replica of the Matterhorn at Disneyland | How tall | _
+replica of the/2 Matterhorn at Disneyland | How tall | _
 
 Is Emilio Said a crack in mathematics?
 Emilio Said | is a crack | in mathematics
@@ -506,13 +503,13 @@ Do you believe in life after love?
 life after love | do you believe in | _
 
 Where does most of the marijuana entering the United States come from?
-most of the marijuana entering the United States | where come from | _
+most of the/1 marijuana entering the/2 United States | where come from | _
 
 What is the citizenship of the president of United States?
-president of United States | citizenship | _
+president of/2 United States | citizenship | _
 
 What is citizenship of the president of the citizenship of the president of United States?
-president of the citizenship of the president of United States | citizenship | _
+president/1 of/2 the/2 citizenship/2 of/3 the/3 president/2 of/4 United States | citizenship/1 | _
 
 Is P=NP a theorem?
 P=NP | is | theorem
@@ -529,3 +526,8 @@ Obama | birth date | _
 date Barack Obama birth
 Barack Obama | birth date | _
 
+Is Paris in France?
+Paris | Is in | France
+
+Who are the Beatles' members?
+Beatles | members | _

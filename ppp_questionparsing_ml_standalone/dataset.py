@@ -1,6 +1,5 @@
 import os
-import nltk, re
-import random
+import re
 import numpy
 import itertools
 
@@ -217,11 +216,11 @@ class FormatSentence:
 
             output = ''
             for (w,n) in words_occurrences :
-                if (True, w, n) in words_subject or (False, w, n) in words_subject:
+                if ((True, w, n) in words_subject) or ((False, w, n) in words_subject):
                     output += '1\n'
-                elif (True, w, n) in words_object or (False, w, n) in words_object:
+                elif ((True, w, n) in words_object) or ((False, w, n) in words_object):
                     output += '3\n'
-                elif (True, w, n) in words_predicate or (False, w, n) in words_predicate:
+                elif ((True, w, n) in words_predicate) or ((False, w, n) in words_predicate):
                     output += '2\n'
                 else:
                     output += '4\n'
@@ -238,7 +237,7 @@ class BuildDataSet:
     __dictionary = None
     __window_size = 4
     __file = None
-    __number_lines = 0
+    __number_sentences = 0
     data_set_input = []
     data_set_output = []
 
@@ -246,9 +245,9 @@ class BuildDataSet:
 
     def __init__(self, dictionary, file, window_size=4):
         self.__dictionary = dictionary
-        self.__number_lines = sum(1 for line in open(file))
         self.__file = open(file, 'r')
         self.__window_size = window_size
+        self.__number_lines = sum(1 for line in open(file))
 
     def __del__(self):
         self.__file.close()
@@ -263,6 +262,7 @@ class BuildDataSet:
     def addSentence(self,raw_sentence,format_sentence):
         self.data_set_input.append(format_sentence.data_set_input())
         self.data_set_output.append(format_sentence.data_set_output())
+        self.__number_sentences += 1
         if raw_sentence in self.__sentences:
             print('Warning: the sentence ' + raw_sentence + ' is already in the dataset')
         else:
@@ -289,14 +289,17 @@ class BuildDataSet:
             sentence=self.format_question(sentence)
             self.addSentence(sentence,f_s)
 
-    def save(self, file_input, file_output):
+    def save(self, file_input, file_output, training_set_distribution=0.9):
+        number_training_example = int(training_set_distribution * self.__number_sentences)
+        v_test = numpy.random.permutation(self.__number_sentences) > number_training_example - 1
+
         f_in_train = open(file_input + '.train.txt', 'w')
         f_in_test = open(file_input + '.test.txt', 'w')
         f_out_train = open(file_output + '.train.txt', 'w')
         f_out_test = open(file_output + '.test.txt', 'w')
 
-        for i in range(1, len(self.data_set_output)):
-            if random.random() < 0.1:
+        for i in range(0, self.__number_sentences):
+            if v_test[i]:
                 f_in_test.write(self.data_set_input[i])
                 f_out_test.write(self.data_set_output[i])
             else:
@@ -373,7 +376,7 @@ class BuildDataSet:
         self.generate_art()
 
 
-def create_dataset():
+def create_dataset(training_set_distribution=0.7):
     """Function called when bootstraping to train the parser."""
     w_size = 5
 
@@ -383,8 +386,9 @@ def create_dataset():
                             'data/AnnotatedQuestions.txt')
     data_set = BuildDataSet(en_dict, filename, window_size=w_size)
     data_set.build()
-    data_set.generate_all()
-    data_set.save(config.get_data('questions'), config.get_data('answers'))
+    #data_set.generate_all()
+    data_set.save(config.get_data('questions'), config.get_data('answers'),
+                  training_set_distribution=training_set_distribution)
 
     print('Generated files saved in: \n' + config.get_data(''))
 

@@ -531,3 +531,30 @@ Paris | Is in | France
 
 Who are the Beatles' members?
 Beatles | members | _
+
+Food location without OGM
+Food location | without OGM | _
+
+Food location without O.G.M.?
+Food location | without O.G.M. | _
+
+Food location without OGM in Lyon
+Food location in Lyon | without OGM | _
+
+Food location without O.G.M. in Lyon
+Food location in Lyon | without O.G.M. | _
+
+How to reach Paris from Lyon?
+Paris from Lyon | how to reach | _
+
+Where is "rue Josephine Baker"?
+"rue Josephine Baker" | where is | _
+
+How to go to "rue Josephine Baker"?
+"rue Josephine Baker" | how to/1 go to/2 | _
+
+Where is the street Josephine Baker?
+street Josephine Baker | where is | _
+
+Where is the street "Josephine Baker"?
+street "Josephine Baker" | where is | _

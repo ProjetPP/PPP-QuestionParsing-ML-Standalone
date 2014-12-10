@@ -5,7 +5,7 @@ import os
 import numpy
 
 
-w_size = 5
+w_size = 4
 en_dict = dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
 filename = os.path.join('ppp_questionparsing_ml_standalone/data/AnnotatedQuestions.txt')
 data_set = dataset.BuildDataSet(en_dict, filename, window_size=w_size)

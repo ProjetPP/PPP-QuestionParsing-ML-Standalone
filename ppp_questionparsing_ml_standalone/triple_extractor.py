@@ -20,7 +20,7 @@ class TripleExtractor:
         self.__method = method
 
     def extract_from_sentence(self, sentence):
-        self.__fs = dataset.FormatSentence(sentence, self.__dictionary, window_size=5)
+        self.__fs = dataset.FormatSentence(sentence, self.__dictionary, window_size=4)
 
         if self.__method == "PythonLinear":
             input_matrix = self.__fs.numpy_input()

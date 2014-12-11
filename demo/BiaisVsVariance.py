@@ -31,8 +31,8 @@ for d in training_set_distribution_list:
 
     if alpha_new > alpha_old:
 
-        trainModel = linear_classifier.TrainLinearClassifier(config.get_data('questions.train.txt'),
-                                                             config.get_data('answers.train.txt'), debug=False)
+        trainModel = linear_classifier.Classifier(config.get_data('questions.train.txt'),
+                                                  config.get_data('answers.train.txt'), debug=False)
         trainModel.train()
 
         train = 1-trainModel.train_evaluation()
@@ -51,7 +51,7 @@ plt.plot(alpha, result_test, '+')
 
 plt.xlabel('Size of the learning set in %')
 plt.ylabel('Error of the model')
-plt.title('Biais vs Variance')
+plt.title('Bias vs Variance')
 plt.ylim([0,0.5])
-plt.savefig('BiaisVsVariance.png')
+plt.savefig('BiasVsVariance.png')
 plt.show()

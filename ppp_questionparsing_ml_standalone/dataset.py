@@ -14,10 +14,10 @@ class Dictionary:
         Load the vectors of the lookup table in the dictionary english_dict
     """
     dict = {}
-    __number_words = 20000
+    __number_words = 100000
     size_vectors = 26
 
-    def __init__(self, path='', number_words=20000, size_vectors=26):
+    def __init__(self, path='', number_words=100000, size_vectors=26):
         self.size_vectors = size_vectors
         self.__number_words = number_words
 
@@ -45,6 +45,7 @@ class Dictionary:
         elif word.isdigit():
             v = list(self.dict['1995'])
         else:
+            #print('Warning: the word %s is not in the look up table' % word)
             v = list(self.dict['*UNKNOWN*'])
 
         #We add one feature to know if the word start with an upper letter or not.
@@ -324,8 +325,8 @@ class BuildDataSet:
         triple = (subject," ".join(predicate),"")
         for sentence in itertools.permutations(predicate+[subject]):
             s = " ".join(sentence)
-            f_s = FormatSentence(s, self.__dictionary,triple,self.__window_size)
-            self.addSentence(sentence,f_s)
+            f_s = FormatSentence(s, self.__dictionary, triple, self.__window_size)
+            self.addSentence(s,f_s)
 
     def generate_person(self):
         for p in dataset_generation.person:
@@ -376,7 +377,7 @@ class BuildDataSet:
         self.generate_art()
 
 
-def create_dataset(training_set_distribution=0.95):
+def create_dataset(training_set_distribution=0.9):
     """Function called when bootstraping to train the parser."""
     w_size = 4
 

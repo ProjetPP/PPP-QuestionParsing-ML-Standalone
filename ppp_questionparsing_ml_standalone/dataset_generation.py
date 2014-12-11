@@ -46,17 +46,19 @@ location = country+city+[
 book = [
     "A Tale of Two Cities",
     "Le Petit Prince",
-    "Harry Potter and the Philosopher's Stone",
     "And Then There Were None",
     "Dream of the Red Chamber",
     "The Hobbit",
-    "She: A History of Adventure"
+    "She: A History of Adventure",
+    "Harry Potter",
+    ""
 ]
 
 film = [
     "Avatar",
     "Titanic",
     "The Avengers",
+    "Ip man"
     "Harry Potter and the Deathly Hallows",
     "Frozen",
     "Iron Man 3",

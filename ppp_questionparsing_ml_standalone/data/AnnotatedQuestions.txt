@@ -124,9 +124,6 @@ Apricot Computer | name of/1 the/2 managing director | _
 How far is Yaroslavl from Moscow?
 Yaroslavl from Moscow | How far | _
 
-Name the designer of the shoe that spawned millions of plastic imitations, known as "jellies".
-"jellies" shoe | designer | _
-
 Who was President Cleveland's wife?
 President Cleveland | wife | _
 
@@ -147,9 +144,6 @@ Charles Manson | how long murder trial last | _
 
 Who was the first Taiwanese President?
 Taiwanese | first president | _
-
-Who was the leader of the Branch Davidian Cult confronted by the FBI in Waco, Texas in 1993?
-Branch Davidian Cult | leader in/1 Waco, Texas in/2 1993 | _
 
 Where is Inoco based?
 Inoco| where is | _
@@ -505,23 +499,8 @@ most of the/1 marijuana entering the/2 United States | where come from | _
 What is the citizenship of the president of United States?
 president of/2 United States | citizenship | _
 
-What is citizenship of the president of the citizenship of the president of United States?
-president/1 of/2 the/2 citizenship/2 of/3 the/3 president/2 of/4 United States | citizenship/1 | _
-
 Is P=NP a theorem?
 P=NP | is | theorem
-
-birth date Obama
-Obama | birth date | _
-
-birth date Barack Obama
-Barack Obama | birth date | _
-
-date Obama birth
-Obama | birth date | _
-
-date Barack Obama birth
-Barack Obama | birth date | _
 
 Is Paris in France?
 Paris | Is in | France
@@ -1446,3 +1425,6 @@ Parsippany, NJ | zip code | _
 
 When was the first Barbie produced?
 Barbie | when first produced | _
+
+zip code for Paris?
+Paris | zip code | _

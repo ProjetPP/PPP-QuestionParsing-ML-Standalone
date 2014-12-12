@@ -48,7 +48,7 @@ class Classifier:
         self.n_in = self.train_in.shape[1]
         self.m = self.train_in.shape[0]
 
-        self.train_out = numpy.loadtxt(file_train_out)
+        self.train_out = numpy.load(file_train_out)
 
         self.classifier = LinearDiscriminantAnalysis(input_matrix=self.train_in, labels=self.train_out)
 
@@ -77,7 +77,7 @@ class Classifier:
 
     def test_evaluation(self, file_test_in, file_test_out):
         test_in = numpy.load(file_test_in)
-        answers_vector = numpy.loadtxt(file_test_out)
+        answers_vector = numpy.load(file_test_out)
         estimated_answers_vector = 1+numpy.argmax(self.classifier.predict(test_in), axis=1)
 
         correct_answers = numpy.sum((estimated_answers_vector == answers_vector).astype('int'))

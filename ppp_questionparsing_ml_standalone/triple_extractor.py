@@ -1,7 +1,7 @@
 import os
 import numpy
 
-from . import dataset, linear_classifier, config
+from . import dataset, linear_classifier, config, preprocessing
 
 
 class TripleExtractor:
@@ -10,33 +10,17 @@ class TripleExtractor:
     __fs = None
     __method = ""
 
-    def __init__(self, method="PythonLinear"):
-        self.__dictionary = dataset.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
+    def __init__(self):
+        self.__dictionary = preprocessing.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
         p = linear_classifier.Predict()
         self.__linear_predict = p
-        self.__method = method
-
-    def change_method(self, method):
-        self.__method = method
 
     def extract_from_sentence(self, sentence):
         self.__fs = dataset.FormatSentence(sentence, self.__dictionary, window_size=4)
 
-        if self.__method == "PythonLinear":
-            input_matrix = self.__fs.data_set_input()
-            output_matrix = self.__linear_predict.predict(input_matrix)
-            return self.get_triplet(numpy.argmax(output_matrix, axis=1))
-
-        elif self.__method == "LuaLinear":
-            fs = dataset.FormatSentence(sentence, self.__dictionary)
-            file = open(config.get_config_path() + 'input.txt', 'w')
-            file.write(fs.data_set_input())
-            file.close()
-
-            os.system('cd ' + config.get_data('../ppp_ml_lua; th forward.lua'))
-            result = open(config.get_data('output.txt'), 'r')
-
-            return self.get_triplet(numpy.array(list(map(lambda x: int(x) - 1, result))))
+        input_matrix = self.__fs.data_set_input()
+        output_matrix = self.__linear_predict.predict(input_matrix)
+        return self.get_triplet(numpy.argmax(output_matrix, axis=1))
 
     def get_triplet(self, solution):
         a, b, c = [], [], []

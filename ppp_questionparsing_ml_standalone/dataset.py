@@ -2,93 +2,8 @@ import os
 import re
 import numpy
 import itertools
-import nltk
-from nltk.tag import pos_tag, map_tag
-
 
 from . import config, dataset_generation, preprocessing
-
-
-class Dictionary:
-    """
-        You can get the dictionary here:
-        http://metaoptimize.com/projects/wordreprs/
-        Load the vectors of the lookup table in the dictionary english_dict
-    """
-    dict = {}
-    __number_words = 200000
-    size_vectors = 26
-
-    def __init__(self, path='', number_words=200000, size_vectors=26):
-        self.size_vectors = size_vectors
-        self.__number_words = number_words
-
-        f = open(path, 'r')
-        for i in range(1, number_words):
-            line = f.readline()
-            s = line.split(' ')
-            word = s[0]
-            vector = s[1:]
-            vector_float = []
-            for j in range(0, len(vector)):
-                vector_float.append(float(vector[j]))
-
-            self.dict[word] = vector_float
-
-        f.close()
-
-    def word_to_vector(self, word):
-        if word in self.dict:
-            v = list(self.dict[word])
-        elif word.lower() in self.dict:
-            v = list(self.dict[word.lower()])
-        elif word.capitalize() in self.dict:
-            v = list(self.dict[word.capitalize()])
-        elif word.isdigit():
-            v = list(self.dict['1995'])
-        else:
-            #print('Warning: the word %s is not in the look up table' % word)
-            v = list(self.dict['*UNKNOWN*'])
-
-        #We add one feature to know if the word start with an upper letter or not.
-        if word.upper() == word:
-            v.append(1.0)
-        elif word[0].upper() == word[0]:
-            v.append(-1.0)
-        else:
-            v.append(0)
-
-        return v
-
-
-class PosTag:
-    @staticmethod
-    def compute_pos_tag(tokens):
-
-        pos_tagged = nltk.pos_tag(tokens)
-        simplified_tags = [map_tag('en-ptb', 'universal', tag) for word, tag in pos_tagged]
-        lookup = {
-            'VERB': 0,
-            'NOUN': 1,
-            'PRON': 2,
-            'ADJ': 3,
-            'ADV': 4,
-            'ADP': 5,
-            'CONJ': 6,
-            'DET': 7,
-            'NUM': 8,
-            'PRT': 9,
-            'X': 10
-        }
-
-        vector_output = []
-        for word in simplified_tags:
-            word_v = numpy.zeros(11)
-            if word in lookup:
-                word_v[lookup[word]] = 1
-
-            vector_output.append(word_v.tolist())
-        return vector_output
 
 
 class FormatSentence:
@@ -104,15 +19,15 @@ class FormatSentence:
     __window_size = 4
     __annotated_sentence = ('', '', '')
     __is_annotated = False
+    __pos_tag_active = False
 
-    def __init__(self, raw_sentence, dictionary, annotated_sentence=('', '', ''), window_size=4):
+    def __init__(self, raw_sentence, dictionary, annotated_sentence=('', '', ''), window_size=4, pos_tag_active=True):
         if raw_sentence[-1] == '?' or raw_sentence[-1] == '.':
             self.sentence = raw_sentence[:-1]
         else:
             self.sentence = raw_sentence
 
         self.words = preprocessing.PreProcessing.tokenize(self.sentence)
-        self.pos_tag = PosTag.compute_pos_tag(self.words)
         self.__dictionary = dictionary
 
         self.__vector_words()
@@ -122,6 +37,14 @@ class FormatSentence:
             self.__is_annotated = True
 
         self.__window_size = window_size
+
+        if pos_tag_active:
+            self.__size_vector = 26+11
+            self.pos_tag = preprocessing.PosTag.compute_pos_tag(self.words)
+        else:
+            self.__size_vector = 26
+        self.__pos_tag_active = pos_tag_active
+
 
 
 
@@ -143,7 +66,8 @@ class FormatSentence:
                 res.extend(zeros)
             else:
                 res.extend(self.__vectorized_words[i])
-                res.extend(self.pos_tag[i])
+                if self.__pos_tag_active:
+                    res.extend(self.pos_tag[i])
         return res
 
     def data_set_input(self):
@@ -218,20 +142,20 @@ class FormatSentence:
             check_unique(words_predicate, words_object)
             check_unique(words_subject, words_object)
 
-            output = ''
+            output = []
             for (w,n) in words_occurrences :
                 if ((True, w, n) in words_subject) or ((False, w, n) in words_subject):
-                    output += '1\n'
+                    output.append(1)
                 elif ((True, w, n) in words_object) or ((False, w, n) in words_object):
-                    output += '3\n'
+                    output.append(3)
                 elif ((True, w, n) in words_predicate) or ((False, w, n) in words_predicate):
-                    output += '2\n'
+                    output.append(2)
                 else:
-                    output += '4\n'
+                    output.append(4)
 
             return output
         else:
-            return ''
+            return []
 
 
 class BuildDataSet:
@@ -249,11 +173,12 @@ class BuildDataSet:
 
     __sentences = {}
 
-    def __init__(self, dictionary, file, window_size=4):
+    def __init__(self, dictionary, file, window_size=4, pos_tag_active=True):
         self.__dictionary = dictionary
         self.__file = open(file, 'r')
         self.__window_size = window_size
         self.__number_lines = sum(1 for line in open(file))
+        self.__pos_tag_active = pos_tag_active
 
     def __del__(self):
         self.__file.close()
@@ -291,7 +216,8 @@ class BuildDataSet:
                 c = ''
 
             a_sentence = (a, b, c)
-            f_s = FormatSentence(sentence, self.__dictionary, a_sentence, window_size=self.__window_size)
+            f_s = FormatSentence(sentence, self.__dictionary, a_sentence, window_size=self.__window_size,
+                                 pos_tag_active=self.__pos_tag_active)
             sentence=self.format_question(sentence)
             self.addSentence(sentence,f_s)
 
@@ -302,27 +228,27 @@ class BuildDataSet:
         self.__number_train_entries = 0
         self.__number_test_entries = 0
 
-        f_out_train = open(file_output + '.train.txt', 'w')
-        f_out_test = open(file_output + '.test.txt', 'w')
+        matrix_in_train = []
+        matrix_in_test = []
 
-        matrix_train = []
-        matrix_test = []
+        matrix_out_train = []
+        matrix_out_test = []
 
         for i in range(0, self.__number_sentences):
             if v_test[i]:
                 self.__number_test_entries += len(self.data_set_input[i])
-                matrix_test.append(self.data_set_input[i])
-                f_out_test.write(self.data_set_output[i])
+                matrix_in_test.append(self.data_set_input[i])
+                matrix_out_test.append(self.data_set_output[i])
             else:
                 self.__number_train_entries += len(self.data_set_input[i])
-                matrix_train.append(self.data_set_input[i])
-                f_out_train.write(self.data_set_output[i])
+                matrix_in_train.append(self.data_set_input[i])
+                matrix_out_train.append(self.data_set_output[i])
 
-        numpy.save(file_input + '.train.npy', numpy.concatenate(matrix_train))
-        numpy.save(file_input + '.test.npy', numpy.concatenate(matrix_test))
+        numpy.save(file_input + '.train.npy', numpy.concatenate(matrix_in_train))
+        numpy.save(file_input + '.test.npy', numpy.concatenate(matrix_in_test))
 
-        f_out_train.close()
-        f_out_test.close()
+        numpy.save(file_output + '.train.npy', numpy.concatenate(matrix_out_train))
+        numpy.save(file_output + '.test.npy', numpy.concatenate(matrix_out_test))
 
     def number_train_entries(self):
         return self.__number_train_entries
@@ -343,7 +269,7 @@ class BuildDataSet:
         triple = (subject," ".join(predicate),"")
         for sentence in itertools.permutations(predicate+[subject]):
             s = " ".join(sentence)
-            f_s = FormatSentence(s, self.__dictionary, triple, self.__window_size)
+            f_s = FormatSentence(s, self.__dictionary, triple, self.__window_size, pos_tag_active=self.__pos_tag_active)
             self.addSentence(s,f_s)
 
     def generate_person(self):
@@ -351,6 +277,7 @@ class BuildDataSet:
             for ev in {"death", "birth"}:
                 for obj in {"place", "date"}:
                     self.generateSentence(p, [obj, ev])
+
 
     def generate_country(self):
         for c in dataset_generation.country:
@@ -405,13 +332,13 @@ def create_dataset(training_set_distribution=0.9):
     """Function called when bootstraping to train the parser."""
     w_size = 4
 
-    en_dict = Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
+    en_dict = preprocessing.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
 
     filename = os.path.join(os.path.dirname(__file__),
                             'data/AnnotatedQuestions.txt')
-    data_set = BuildDataSet(en_dict, filename, window_size=w_size)
-    data_set.build()
-    #data_set.generate_all()
+    data_set = BuildDataSet(en_dict, filename, window_size=w_size, pos_tag_active=True)
+    #data_set.build()
+    data_set.generate_all()
     data_set.save(config.get_data('questions'), config.get_data('answers'),
                   training_set_distribution=training_set_distribution)
 

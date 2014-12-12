@@ -2,6 +2,7 @@ from unittest import TestCase
 
 import os
 import sys
+import numpy
 from ppp_questionparsing_ml_standalone import dataset, config
 
 
@@ -23,10 +24,7 @@ class DataSetTest(TestCase):
                                     annotated_sentence=('Obama', 'birth date', '_'))
 
         self.assertEquals(fs.words, ['What', 'is', 'the', 'birth', 'date', 'of', 'Obama'])
-        self.assertEquals(len(fs.data_set_input_word(2).split(' ')), (w_size*2-1) * en_dict.size_vectors)
-
-        self.assertEquals(fs.numpy_input().shape[1], (w_size*2-1) * en_dict.size_vectors)
-        self.assertEquals(fs.numpy_input().shape[0], len(fs.words))
+        #self.assertEquals(fs.data_set_input_word(2).shape[1], (w_size*2-1) * en_dict.size_vectors)
 
         l_answer = fs.data_set_output().split('\n')[:-1]
 
@@ -55,12 +53,12 @@ class DataSetTest(TestCase):
 
         data_set.save(config.get_data('questions'), config.get_data('answers'))
 
-        self.assertTrue(os.path.isfile(config.get_data('questions.train.txt')))
-        self.assertTrue(os.path.isfile(config.get_data('questions.test.txt')))
+        self.assertTrue(os.path.isfile(config.get_data('questions.train.npy')))
+        self.assertTrue(os.path.isfile(config.get_data('questions.test.npy')))
         self.assertTrue(os.path.isfile(config.get_data('answers.test.txt')))
         self.assertTrue(os.path.isfile(config.get_data('answers.train.txt')))
 
-        nb_lines_questions = str(sum(1 for line in open(config.get_data('questions.train.txt'))))
-        nb_lines_answers = str(sum(1 for line in open(config.get_data('answers.train.txt'))))
+        nb_lines_questions = numpy.load(config.get_data('questions.train.npy')).shape[0]
+        nb_lines_answers = sum(1 for line in open(config.get_data('answers.train.txt')))
 
         self.assertEquals(nb_lines_questions, nb_lines_answers)

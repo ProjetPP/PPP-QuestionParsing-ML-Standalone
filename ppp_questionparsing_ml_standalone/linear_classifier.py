@@ -11,6 +11,7 @@ import numpy
 
 from . import config
 from sklearn.lda import LDA
+from sklearn.qda import QDA
 from sklearn.externals import joblib
 from sklearn.metrics import confusion_matrix
 
@@ -43,7 +44,7 @@ class Classifier:
 
     def __init__(self, file_train_in, file_train_out, debug=True):
 
-        self.train_in = numpy.loadtxt(file_train_in)
+        self.train_in = numpy.load(file_train_in)
         self.n_in = self.train_in.shape[1]
         self.m = self.train_in.shape[0]
 
@@ -75,7 +76,7 @@ class Classifier:
         self.classifier.save_model(config.get_data('model.pkl'))
 
     def test_evaluation(self, file_test_in, file_test_out):
-        test_in = numpy.loadtxt(file_test_in)
+        test_in = numpy.load(file_test_in)
         answers_vector = numpy.loadtxt(file_test_out)
         estimated_answers_vector = 1+numpy.argmax(self.classifier.predict(test_in), axis=1)
 

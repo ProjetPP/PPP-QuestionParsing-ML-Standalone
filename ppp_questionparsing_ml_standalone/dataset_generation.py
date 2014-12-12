@@ -72,5 +72,10 @@ single = [
     "Hey Jude",
     "Bohemian Rhapsody"
 ]
+band = [
+    "Led Zeppelin",
+    "The Beatles",
+    "Scorpions"
+]
 
 art = book+film+single

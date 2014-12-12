@@ -2,6 +2,9 @@ import os
 import re
 import numpy
 import itertools
+import nltk
+from nltk.tag import pos_tag, map_tag
+
 
 from . import config, dataset_generation, preprocessing
 
@@ -10,14 +13,13 @@ class Dictionary:
     """
         You can get the dictionary here:
         http://metaoptimize.com/projects/wordreprs/
-
         Load the vectors of the lookup table in the dictionary english_dict
     """
     dict = {}
-    __number_words = 100000
+    __number_words = 200000
     size_vectors = 26
 
-    def __init__(self, path='', number_words=100000, size_vectors=26):
+    def __init__(self, path='', number_words=200000, size_vectors=26):
         self.size_vectors = size_vectors
         self.__number_words = number_words
 
@@ -59,6 +61,36 @@ class Dictionary:
         return v
 
 
+class PosTag:
+    @staticmethod
+    def compute_pos_tag(tokens):
+
+        pos_tagged = nltk.pos_tag(tokens)
+        simplified_tags = [map_tag('en-ptb', 'universal', tag) for word, tag in pos_tagged]
+        lookup = {
+            'VERB': 0,
+            'NOUN': 1,
+            'PRON': 2,
+            'ADJ': 3,
+            'ADV': 4,
+            'ADP': 5,
+            'CONJ': 6,
+            'DET': 7,
+            'NUM': 8,
+            'PRT': 9,
+            'X': 10
+        }
+
+        vector_output = []
+        for word in simplified_tags:
+            word_v = numpy.zeros(11)
+            if word in lookup:
+                word_v[lookup[word]] = 1
+
+            vector_output.append(word_v.tolist())
+        return vector_output
+
+
 class FormatSentence:
     """
     Take a sentence, annotated or not, and generate the vectors associated
@@ -66,8 +98,7 @@ class FormatSentence:
     """
     sentence = ''
     words = []
-    __null_vector = []
-    __size_vector = 26
+    __size_vector = 26+11
     __dictionary = None
     __vectorized_words = []
     __window_size = 4
@@ -81,7 +112,7 @@ class FormatSentence:
             self.sentence = raw_sentence
 
         self.words = preprocessing.PreProcessing.tokenize(self.sentence)
-        self.__null_vector = self.__vector_to_string(self, [0.0] * self.__size_vector)
+        self.pos_tag = PosTag.compute_pos_tag(self.words)
         self.__dictionary = dictionary
 
         self.__vector_words()
@@ -93,61 +124,33 @@ class FormatSentence:
         self.__window_size = window_size
 
 
-    @staticmethod
-    def __vector_to_string(self, vector_w):
-        s_out = ''
-        for r in range(0, len(vector_w) - 1):
-            s_out += "%4.4f " % vector_w[r]
-
-        s_out += "%4.4f" % vector_w[len(vector_w)-1]
-
-        return s_out
 
     #Compute all the vector corresponding to the words of the sentence.
     def __vector_words(self):
         self.__vectorized_words = []
         for word in self.words:
             vector_w = self.__dictionary.word_to_vector(word)
-            self.__vectorized_words.append(self.__vector_to_string(self, vector_w))
+            self.__vectorized_words.append(vector_w)
 
-    #return the vectors in a string format corresponding to a word with a fixed window size
+    #return the vector in a list format corresponding to a word with a fixed window size
     def data_set_input_word(self, word_index):
-        res = ''
+        res = []
+        zeros = [0.0] * self.__size_vector
         for i in range(word_index-self.__window_size+1, word_index+self.__window_size):
             if i < 0:
-                res += self.__null_vector
+                res.extend(zeros)
             elif i >= len(self.__vectorized_words):
-                res += self.__null_vector
+                res.extend(zeros)
             else:
-                res += self.__vectorized_words[i]
-
-            if i < word_index+self.__window_size-1:
-                res += ' '
-
+                res.extend(self.__vectorized_words[i])
+                res.extend(self.pos_tag[i])
         return res
 
     def data_set_input(self):
-        res = ''
+        res = []
         for i in range(0, len(self.words)):
-            res += self.data_set_input_word(i) + '\n'
+            res.append(self.data_set_input_word(i))
         return res
-
-    #Return a matrix corresponding to the input, in the numpy format
-    def numpy_input(self):
-        s = self.data_set_input().split('\n')
-        matrix = numpy.zeros((len(self.words), (2*self.__window_size-1)*self.__size_vector), dtype=float)
-
-        i = 0
-        for line in s:
-            if line is not '':
-                v = numpy.fromstring(line, dtype=float, sep=' ')
-                matrix[i] = v
-                i += 1
-
-        return matrix
-
-
-
 
     @staticmethod
     def __lower_list(l):
@@ -239,6 +242,8 @@ class BuildDataSet:
     __window_size = 4
     __file = None
     __number_sentences = 0
+    __number_test_entries = 0
+    __number_train_entries = 0
     data_set_input = []
     data_set_output = []
 
@@ -294,23 +299,36 @@ class BuildDataSet:
         number_training_example = int(training_set_distribution * self.__number_sentences)
         v_test = numpy.random.permutation(self.__number_sentences) > number_training_example - 1
 
-        f_in_train = open(file_input + '.train.txt', 'w')
-        f_in_test = open(file_input + '.test.txt', 'w')
+        self.__number_train_entries = 0
+        self.__number_test_entries = 0
+
         f_out_train = open(file_output + '.train.txt', 'w')
         f_out_test = open(file_output + '.test.txt', 'w')
 
+        matrix_train = []
+        matrix_test = []
+
         for i in range(0, self.__number_sentences):
             if v_test[i]:
-                f_in_test.write(self.data_set_input[i])
+                self.__number_test_entries += len(self.data_set_input[i])
+                matrix_test.append(self.data_set_input[i])
                 f_out_test.write(self.data_set_output[i])
             else:
-                f_in_train.write(self.data_set_input[i])
+                self.__number_train_entries += len(self.data_set_input[i])
+                matrix_train.append(self.data_set_input[i])
                 f_out_train.write(self.data_set_output[i])
 
-        f_in_train.close()
-        f_in_test.close()
+        numpy.save(file_input + '.train.npy', numpy.concatenate(matrix_train))
+        numpy.save(file_input + '.test.npy', numpy.concatenate(matrix_test))
+
         f_out_train.close()
         f_out_test.close()
+
+    def number_train_entries(self):
+        return self.__number_train_entries
+
+    def number_test_entries(self):
+        return self.__number_test_entries
 
     def generateSentence(self,subject,predicate):
         """
@@ -336,12 +354,12 @@ class BuildDataSet:
 
     def generate_country(self):
         for c in dataset_generation.country:
-            self.generateSentence(c,["president"])
+            self.generateSentence(c,["president", "capital"])
             self.generateSentence(c,["prime", "minister"])
 
     def generate_city(self):
         for c in dataset_generation.city:
-            self.generateSentence(c,["mayor"])
+            self.generateSentence(c,["mayor", "population", "country"])
 
     def generate_location(self):
         for l in dataset_generation.location:
@@ -366,6 +384,12 @@ class BuildDataSet:
             self.generateSentence(a,["official","website"])
             self.generateSentence(a,["date","publication"])
 
+    def generate_band(self):
+        for g in dataset_generation.band:
+            self.generateSentence(g, ["formation", "location"])
+            self.generateSentence(g, ["formation", "date"])
+            self.generateSentence(g, ["members"])
+
     def generate_all(self):
         self.generate_person()
         self.generate_country()
@@ -387,14 +411,12 @@ def create_dataset(training_set_distribution=0.9):
                             'data/AnnotatedQuestions.txt')
     data_set = BuildDataSet(en_dict, filename, window_size=w_size)
     data_set.build()
-    data_set.generate_all()
+    #data_set.generate_all()
     data_set.save(config.get_data('questions'), config.get_data('answers'),
                   training_set_distribution=training_set_distribution)
 
     print('Generated files saved in: \n' + config.get_data(''))
 
     print('Database generated.')
-    print('Number of entries in the train set: ' +
-          str(sum(1 for line in open(config.get_data('questions.train.txt')))))
-    print('Number of entries in the test set: ' +
-          str(sum(1 for line in open(config.get_data('questions.test.txt')))))
+    print('Number of entries in the train set: ' + str(data_set.number_train_entries()))
+    print('Number of entries in the test set: ' + str(data_set.number_test_entries()))

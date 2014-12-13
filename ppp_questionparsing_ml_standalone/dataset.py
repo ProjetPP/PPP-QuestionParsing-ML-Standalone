@@ -328,16 +328,16 @@ class BuildDataSet:
         self.generate_art()
 
 
-def create_dataset(training_set_distribution=0.9):
+def create_dataset(training_set_distribution=0.95):
     """Function called when bootstraping to train the parser."""
-    w_size = 4
+    w_size = config.get_windows_size()
 
     en_dict = preprocessing.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
 
     filename = os.path.join(os.path.dirname(__file__),
                             'data/AnnotatedQuestions.txt')
     data_set = BuildDataSet(en_dict, filename, window_size=w_size, pos_tag_active=True)
-    #data_set.build()
+    data_set.build()
     data_set.generate_all()
     data_set.save(config.get_data('questions'), config.get_data('answers'),
                   training_set_distribution=training_set_distribution)

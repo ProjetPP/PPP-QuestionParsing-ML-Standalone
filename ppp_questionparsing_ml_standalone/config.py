@@ -10,3 +10,6 @@ class Config(BaseConfig):
 
 def get_data(filename):
     return os.path.join(Config().data_dir, filename)
+
+def get_windows_size():
+    return 5

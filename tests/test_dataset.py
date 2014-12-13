@@ -10,7 +10,7 @@ class DataSetTest(TestCase):
 
     def testSentence(self):
         en_dict = preprocessing.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
-        w_size = 4
+        w_size = config.get_windows_size()
         self.assertEquals(len(en_dict.word_to_vector('Obama')), en_dict.size_vectors)
         self.assertEquals(len(en_dict.word_to_vector('53')), en_dict.size_vectors)
 
@@ -28,7 +28,7 @@ class DataSetTest(TestCase):
             self.assertIn(int(c), [1, 2, 3, 4])
 
     def testDataSet(self):
-        w_size = 4
+        w_size = config.get_windows_size()
         en_dict = preprocessing.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
 
         filename = os.path.join(os.path.dirname(sys.modules['ppp_questionparsing_ml_standalone'].__file__),

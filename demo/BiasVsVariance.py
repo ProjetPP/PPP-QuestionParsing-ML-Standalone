@@ -6,11 +6,11 @@ import numpy
 
 
 w_size = 5
-en_dict = dataset.preprocessing.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
+en_dict = preprocessing.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
 filename = os.path.join('ppp_questionparsing_ml_standalone/data/AnnotatedQuestions.txt')
 data_set = dataset.BuildDataSet(en_dict, filename, window_size=w_size, pos_tag_active=False)
 data_set.build()
-#data_set.generate_all()
+data_set.generate_all()
 
 
 training_set_distribution_list = numpy.arange(0.15, 0.9, 0.0025)
@@ -46,12 +46,13 @@ for d in training_set_distribution_list:
         alpha.append(alpha_new)
         alpha_old = alpha_new
 
-plt.plot(alpha, result_train, 'ro')
-plt.plot(alpha, result_test, '+')
+line_up, = plt.plot(alpha, result_train, 'ro', label='training set error')
+line_down, = plt.plot(alpha, result_test, '+', label='testing set error')
+
+plt.legend(handles=[line_up, line_down])
 
 plt.xlabel('Size of the learning set in %')
 plt.ylabel('Error of the model')
-plt.title('Bias vs Variance')
 plt.ylim([0,0.5])
 plt.savefig('BiasVsVariance.png')
-plt.show()
+#plt.show()

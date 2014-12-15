@@ -32,7 +32,7 @@ class DataSetTest(TestCase):
         en_dict = preprocessing.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
 
         filename = os.path.join(os.path.dirname(sys.modules['ppp_questionparsing_ml_standalone'].__file__),
-                                'data/AnnotatedQuestions.txt')
+                                'data/AnnotatedKeywordsQuestions.txt')
         data_set = dataset.BuildDataSet(en_dict, filename, window_size=w_size)
 
 

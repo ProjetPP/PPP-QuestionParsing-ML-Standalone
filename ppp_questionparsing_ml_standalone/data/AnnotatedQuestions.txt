@@ -695,7 +695,7 @@ Where do lobsters like to live?
 lobsters | where live | _
 
 What are birds descendents of?
-birds | are descendents of | _
+birds | descendents | _
 
 What does NAFTA stand for?
 NAFTA | stand for | _
@@ -1145,7 +1145,7 @@ Who owns CNN?
 CNN | Who owns | _
 
 What is the name of a Salt Lake City newspaper?
-Salt Lake City | name a newspaper of | _
+Salt Lake City | name a newspaper | _
 
 Who was Jane Goodall?
 Jane Goodall | Who was | _
@@ -1277,7 +1277,7 @@ What is a stratocaster?
 stratocaster | What is | _
 
 Where are the headquarters of Eli Lilly?
-Eli Lilly | Where are the headquarters of | _
+Eli Lilly | headquarters | _
 
 Where did Hillary Clinton graduate college?
 Hillary Clinton | Where graduate college | _
@@ -1428,3 +1428,10 @@ Barbie | when first produced | _
 
 zip code for Paris?
 Paris | zip code | _
+
+Is Paris capital of France?
+France | capital | Paris
+
+Paris is France capital?
+France | capital | Paris
+

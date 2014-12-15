@@ -11,7 +11,7 @@ import numpy
 
 from . import config
 from sklearn.lda import LDA
-from sklearn.qda import QDA
+
 from sklearn.externals import joblib
 from sklearn.metrics import confusion_matrix
 
@@ -26,7 +26,7 @@ class LinearDiscriminantAnalysis(object):
         self.clf.fit(self.x, self.y)
 
     def predict(self, x):
-        return self.clf.predict_proba(x)
+        return self.clf.predict(x)
 
     def save_model(self, file):
         joblib.dump(self.clf, file)
@@ -60,7 +60,7 @@ class Classifier:
         self.classifier.train()
 
     def train_evaluation(self):
-        estimated_answers_vector = 1+numpy.argmax(self.classifier.predict(self.train_in), axis=1)
+        estimated_answers_vector = self.classifier.predict(self.train_in)
         answers_vector = self.train_out
 
         correct_answers = numpy.sum((estimated_answers_vector == answers_vector).astype('int'))
@@ -78,7 +78,7 @@ class Classifier:
     def test_evaluation(self, file_test_in, file_test_out):
         test_in = numpy.load(file_test_in)
         answers_vector = numpy.load(file_test_out)
-        estimated_answers_vector = 1+numpy.argmax(self.classifier.predict(test_in), axis=1)
+        estimated_answers_vector = self.classifier.predict(test_in)
 
         correct_answers = numpy.sum((estimated_answers_vector == answers_vector).astype('int'))
         ratio_correct_answers = float(correct_answers)/answers_vector.shape[0]
@@ -99,4 +99,4 @@ class Predict:
         self.clf = joblib.load(model_file)
 
     def predict(self, input_matrix):
-        return self.clf.predict_proba(input_matrix)
+        return self.clf.predict(input_matrix)

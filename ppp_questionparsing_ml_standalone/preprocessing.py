@@ -97,7 +97,7 @@ class PreProcessing():
         acc_letters = ''
         opened = False
         for i in range(0, len(sentence)):
-            if sentence[i] == '"':
+            if sentence[i] in ['"', '“', '”']:
                 list_sentence.append((opened, acc_letters))
                 acc_letters = ''
                 opened = not opened

@@ -20,17 +20,17 @@ class TripleExtractor:
 
         input_matrix = self.__fs.data_set_input()
         output_matrix = self.__linear_predict.predict(input_matrix)
-        return self.get_triplet(numpy.argmax(output_matrix, axis=1))
+        return self.get_triplet(output_matrix)
 
     def get_triplet(self, solution):
         a, b, c = [], [], []
 
         for i in range(0, solution.shape[0]):
-            if int(solution[i]) == 0:
+            if int(solution[i]) == 1:
                 a.append(self.__fs.words[i])
-            elif int(solution[i]) == 1:
-                b.append(self.__fs.words[i])
             elif int(solution[i]) == 2:
+                b.append(self.__fs.words[i])
+            elif int(solution[i]) == 3:
                 c.append(self.__fs.words[i])
 
         def get_elem(l):

@@ -264,8 +264,6 @@ class BuildDataSet:
             self.generateSentence('foo',['bar1','bar2','bar3']) will generate all permutations of
                 {'foo','bar1','bar2','bar3'}, associated to the triple ('foo', 'bar1 bar2 bar3', ?)
         """
-        subject = subject.lower()
-        predicate = [p.lower() for p in predicate]
         triple = (subject," ".join(predicate),"")
         for sentence in itertools.permutations(predicate+[subject]):
             s = " ".join(sentence)
@@ -286,7 +284,8 @@ class BuildDataSet:
 
     def generate_city(self):
         for c in dataset_generation.city:
-            self.generateSentence(c,["mayor", "population", "country"])
+            for s in ["mayor", "country"]:
+                self.generateSentence(c,[s])
 
     def generate_location(self):
         for l in dataset_generation.location:
@@ -296,6 +295,8 @@ class BuildDataSet:
         for f in dataset_generation.film:
             self.generateSentence(f,["cast","member"])
             self.generateSentence(f,["director"])
+            self.generateSentence(f,["actor"])
+
 
     def generate_book(self):
         for b in dataset_generation.book:
@@ -335,7 +336,7 @@ def create_dataset(training_set_distribution=0.95):
     en_dict = preprocessing.Dictionary(config.get_data('embeddings-scaled.EMBEDDING_SIZE=25.txt'))
 
     filename = os.path.join(os.path.dirname(__file__),
-                            'data/AnnotatedQuestions.txt')
+                            'data/AnnotatedKeywordsQuestions.txt')
     data_set = BuildDataSet(en_dict, filename, window_size=w_size, pos_tag_active=True)
     data_set.build()
     data_set.generate_all()

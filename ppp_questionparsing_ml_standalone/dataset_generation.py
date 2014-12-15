@@ -6,7 +6,6 @@ person = [
     "John Lennon",
     "Saint-Exupéry",
     "Antoine de Saint-Exupéry",
-    "Antoine Marie Jean-Baptiste Roger de Saint-Exupéry"
 ]
 
 country = [
@@ -51,15 +50,13 @@ book = [
     "The Hobbit",
     "She: A History of Adventure",
     "Harry Potter",
-    ""
+    "CleanCode"
 ]
 
 film = [
     "Avatar",
-    "Titanic",
     "The Avengers",
-    "Ip man"
-    "Harry Potter and the Deathly Hallows",
+    "Ip man",
     "Frozen",
     "Iron Man 3",
     "Transformers: Dark of the Moon",

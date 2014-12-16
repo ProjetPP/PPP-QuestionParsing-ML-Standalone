@@ -267,6 +267,8 @@ class BuildDataSet:
         triple = (subject," ".join(predicate),"")
         for sentence in itertools.permutations(predicate+[subject]):
             s = " ".join(sentence)
+            #print(s)
+            #print('(%s, %s, %s)' % triple)
             f_s = FormatSentence(s, self.__dictionary, triple, self.__window_size, pos_tag_active=self.__pos_tag_active)
             self.addSentence(s,f_s)
 
@@ -289,7 +291,8 @@ class BuildDataSet:
 
     def generate_location(self):
         for l in dataset_generation.location:
-            self.generateSentence(l,["population"])
+            for x in {"location", "population"}:
+                self.generateSentence(l,[x])
 
     def generate_film(self):
         for f in dataset_generation.film:
@@ -329,7 +332,7 @@ class BuildDataSet:
         self.generate_art()
 
 
-def create_dataset(training_set_distribution=0.95):
+def create_dataset(training_set_distribution=0.98):
     """Function called when bootstraping to train the parser."""
     w_size = config.get_windows_size()
 

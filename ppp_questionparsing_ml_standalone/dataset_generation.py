@@ -30,7 +30,14 @@ city = [
     "New Delhi"
 ]
 
-location = country+city+[
+place = [
+    "ENS Lyon",
+    "ENS de Lyon",
+    "Ecole Normale Superieure",
+    "Ecole Normale Superieure de Lyon"
+]
+
+location = country+city+place+[
     "South America",
     "Middle East",
     "Africa",

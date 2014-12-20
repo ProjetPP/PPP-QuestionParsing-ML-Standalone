@@ -2,6 +2,7 @@
 
 export PPP_ML_STANDALONE_CONFIG=config.json
 DATA_DIR=`/usr/bin/env python3 -c "print(__import__('ppp_questionparsing_ml_standalone.config').config.Config().data_dir)"`
+/usr/bin/env python3 -c "from sklearn.lda import LDA"
 
 mkdir -p $DATA_DIR
 

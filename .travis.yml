@@ -8,7 +8,7 @@ python:
 
 install:
     - sudo apt-get install python3-numpy libopenblas-dev libatlas-dev libatlas3gf-base
-    - sudo apt-get install libblas-dev libapack-dev
+    - sudo apt-get install libblas-dev liblapack-dev
     - pip install scrutinizer-ocular coverage webtest httmock requests ppp_datamodel ppp_core nltk numpy
     - pip install scipy scikit-learn
     - python -m nltk.downloader punkt

@@ -1,6 +1,6 @@
 #PPP-QuestionParsing-ML-standalone
 
-[![Build Status](https://travis-ci.org/ProjetPP/PPP-QuestionParsing-ML-Standalone.svg?branch=master)](https://travis-ci.org/ProjetPP/PPP-QuestionParsing-ML-standalone)
+[![Build Status](https://travis-ci.org/ProjetPP/PPP-QuestionParsing-ML-Standalone.svg?branch=master)](https://travis-ci.org/ProjetPP/PPP-QuestionParsing-ML-Standalone)
 [![Code Coverage](https://scrutinizer-ci.com/g/ProjetPP/PPP-QuestionParsing-ML-standalone/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ProjetPP/PPP-QuestionParsing-ML-standalone/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ProjetPP/PPP-QuestionParsing-ML-standalone/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ProjetPP/PPP-QuestionParsing-ML-standalone/?branch=master)
 

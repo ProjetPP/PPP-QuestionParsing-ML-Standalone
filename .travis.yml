@@ -7,7 +7,8 @@ python:
   - 3.4
 
 install:
-    - pip install scrutinizer-ocular coverage webtest httmock requests ppp_datamodel ppp_core nltk numpy
+    - sudo apt-get install python3-numpy
+    - pip install scrutinizer-ocular coverage webtest httmock requests ppp_datamodel ppp_core nltk
     - sudo apt-get install libatlas-dev libatlas3gf-base
     - pip install -U scikit-learn
     - python -m nltk.downloader punkt

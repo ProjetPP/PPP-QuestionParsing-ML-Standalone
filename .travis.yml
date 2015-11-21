@@ -9,7 +9,10 @@ python:
 install:
     - sudo apt-get install python3-numpy libopenblas-dev libatlas-dev libatlas3gf-base
     - sudo apt-get install libblas-dev liblapack-dev
-    - pip install scrutinizer-ocular coverage webtest httmock requests ppp_datamodel ppp_core nltk numpy
+    - pip install scrutinizer-ocular webtest httmock requests ppp_datamodel ppp_core nltk numpy
+    # Coveralls 4.0 doesn't support Python 3.2
+    - if [ "$TRAVIS_PYTHON_VERSION" == "3.2" ]; then travis_retry pip install coverage==3.7.1; fi
+    - if [ "$TRAVIS_PYTHON_VERSION" != "3.2" ]; then travis_retry pip install coverage; fi
     - pip install scipy scikit-learn
     - python -m nltk.downloader punkt
 
